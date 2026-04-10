@@ -1,0 +1,2 @@
+# NGSquiz
+Test examen NGS 
