@@ -1,2 +1,757 @@
 # NGSquiz
-Test examen NGS 
+<!DOCTYPE html>
+
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NGS Sportmasseur – Examensimulatie</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f4f8; color: #1a202c; min-height: 100vh; }
+
+.header { background: linear-gradient(135deg, #1e3a5f, #2d6fa8); color: white; padding: 18px 16px 14px; text-align: center; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.header h1 { font-size: 1.2em; font-weight: 700; }
+.header p { font-size: 0.78em; opacity: 0.8; margin-top: 2px; }
+.progress-bar-wrap { background: rgba(255,255,255,0.2); border-radius: 10px; height: 7px; margin-top: 10px; }
+.progress-bar { background: #ffd700; border-radius: 10px; height: 7px; transition: width 0.4s ease; }
+.stats { display: flex; justify-content: center; gap: 12px; margin-top: 8px; font-size: 0.75em; }
+.stat { background: rgba(255,255,255,0.15); border-radius: 8px; padding: 3px 10px; }
+
+.container { max-width: 660px; margin: 0 auto; padding: 18px 14px 50px; }
+.card { background: white; border-radius: 14px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+.wp-tag { display: inline-block; background: #e8f0fe; color: #1e3a5f; font-size: 0.68em; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.question-nr { font-size: 0.75em; color: #718096; margin-bottom: 5px; }
+.question-text { font-size: 1em; font-weight: 600; line-height: 1.55; color: #1a202c; margin-bottom: 18px; }
+
+.options { display: flex; flex-direction: column; gap: 9px; }
+.option-btn { background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; text-align: left; font-size: 0.92em; cursor: pointer; transition: all 0.18s; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
+.option-btn:hover:not(:disabled) { border-color: #2d6fa8; background: #ebf4ff; }
+.option-btn .letter { font-weight: 800; color: #2d6fa8; min-width: 18px; flex-shrink: 0; }
+.option-btn.correct { background: #f0fff4; border-color: #38a169; }
+.option-btn.correct .letter { color: #276749; }
+.option-btn.wrong { background: #fff5f5; border-color: #e53e3e; }
+.option-btn.wrong .letter { color: #c53030; }
+.option-btn:disabled { cursor: default; }
+
+.feedback { margin-top: 14px; padding: 13px 15px; border-radius: 10px; font-size: 0.86em; line-height: 1.55; display: none; }
+.feedback.correct { background: #f0fff4; border: 1.5px solid #9ae6b4; color: #22543d; }
+.feedback.wrong { background: #fff5f5; border: 1.5px solid #fed7d7; color: #742a2a; }
+.feedback-title { font-weight: 700; margin-bottom: 4px; font-size: 1em; }
+.feedback-source { margin-top: 8px; font-size: 0.8em; opacity: 0.7; font-style: italic; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 6px; }
+
+.next-btn { display: none; width: 100%; margin-top: 14px; background: #1e3a5f; color: white; border: none; border-radius: 10px; padding: 13px; font-size: 0.95em; font-weight: 600; cursor: pointer; }
+.next-btn:hover { background: #2d6fa8; }
+
+.start-screen { text-align: center; }
+.start-screen h2 { font-size: 1.25em; font-weight: 700; color: #1e3a5f; margin-bottom: 10px; }
+.start-screen p { color: #4a5568; font-size: 0.88em; line-height: 1.6; margin-bottom: 14px; }
+.topics-grid { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; margin-bottom: 18px; }
+.topic-pill { background: #e8f0fe; color: #1e3a5f; padding: 4px 11px; border-radius: 20px; font-size: 0.74em; font-weight: 600; }
+.mode-select { display: flex; gap: 10px; justify-content: center; margin-bottom: 18px; flex-wrap: wrap; }
+.mode-btn { border: 2px solid #2d6fa8; color: #2d6fa8; background: white; border-radius: 10px; padding: 10px 18px; font-size: 0.85em; font-weight: 600; cursor: pointer; transition: all 0.2s; line-height: 1.4; }
+.mode-btn:hover, .mode-btn.active { background: #2d6fa8; color: white; }
+.start-btn { background: #1e3a5f; color: white; border: none; border-radius: 10px; padding: 14px 34px; font-size: 1em; font-weight: 700; cursor: pointer; }
+.start-btn:hover { background: #2d6fa8; }
+
+.result-screen { text-align: center; display: none; }
+.result-emoji { font-size: 2.5em; margin: 8px 0; }
+.result-score { font-size: 3em; font-weight: 800; color: #1e3a5f; }
+.result-label { font-size: 1em; color: #4a5568; margin: 8px 0 18px; }
+.result-breakdown { display: flex; justify-content: center; gap: 14px; margin-bottom: 20px; }
+.rb { padding: 9px 16px; border-radius: 10px; font-weight: 700; font-size: 0.88em; }
+.rb.good { background: #f0fff4; color: #276749; }
+.rb.bad { background: #fff5f5; color: #c53030; }
+.result-cats { text-align: left; margin-bottom: 20px; background: #f7fafc; border-radius: 10px; padding: 14px; }
+.result-cats h3 { font-size: 0.85em; font-weight: 700; color: #1e3a5f; margin-bottom: 10px; }
+.cat-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.78em; padding: 5px 0; border-bottom: 1px solid #e2e8f0; gap: 8px; }
+.cat-row:last-child { border-bottom: none; }
+.cat-name { flex: 1; }
+.cat-score { color: #718096; min-width: 32px; text-align: right; }
+.cat-bar { width: 70px; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+.cat-fill { height: 100%; border-radius: 3px; }
+.result-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.restart-btn { background: #1e3a5f; color: white; border: none; border-radius: 10px; padding: 13px 24px; font-size: 0.92em; font-weight: 700; cursor: pointer; }
+.restart-btn.sec { background: #4a5568; }
+.restart-btn:hover { opacity: 0.85; }
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <h1>🏅 NGS Sportmasseur – Examensimulatie</h1>
+  <p>Gebaseerd op het studieboek van Jan Bijker / Lian Bart</p>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+  <div class="stats">
+    <div class="stat" id="statVoortgang">Vraag 0 / 0</div>
+    <div class="stat" id="statScore">✓ 0 goed</div>
+    <div class="stat" id="statStreak">🔥 0</div>
+  </div>
+</div>
+
+<div class="container"><div class="card">
+
+<!-- START -->
+
+<div class="start-screen" id="startScreen">
+  <h2>Klaar voor je examen? 💪</h2>
+  <p>60+ vragen uit alle hoofdstukken van het boek. Elke vraag toont de bron uit het boek.</p>
+  <div class="topics-grid">
+    <span class="topic-pill">Botten & Geraamte</span><span class="topic-pill">Gewrichten</span>
+    <span class="topic-pill">Bewegingsleer</span><span class="topic-pill">Spieren Arm</span>
+    <span class="topic-pill">Spieren Been</span><span class="topic-pill">Spieren Romp/Rug</span>
+    <span class="topic-pill">Massage & Handgrepen</span><span class="topic-pill">Contra-indicaties</span>
+    <span class="topic-pill">EHBO & Reanimatie</span><span class="topic-pill">Blessures</span>
+    <span class="topic-pill">Tapen</span><span class="topic-pill">Fysiologie & Training</span>
+    <span class="topic-pill">Huid</span><span class="topic-pill">Cliëntdossier & Regels</span>
+  </div>
+  <p style="font-weight:600;color:#1e3a5f;margin-bottom:10px">Kies aantal vragen:</p>
+  <div class="mode-select">
+    <button class="mode-btn active" id="mode20" onclick="setMode(20)">20 vragen<br><small>Snelle oefening</small></button>
+    <button class="mode-btn" id="mode40" onclick="setMode(40)">40 vragen<br><small>Uitgebreid</small></button>
+    <button class="mode-btn" id="modeAll" onclick="setMode(9999)">Alles<br><small>Volledig (60+)</small></button>
+  </div>
+  <button class="start-btn" onclick="startExam()">Start examensimulatie →</button>
+</div>
+
+<!-- QUIZ -->
+
+<div id="quizScreen" style="display:none">
+  <div class="wp-tag" id="wpTag"></div>
+  <div class="question-nr" id="questionNr"></div>
+  <div class="question-text" id="questionText"></div>
+  <div class="options" id="optionsContainer"></div>
+  <div class="feedback" id="feedbackBox">
+    <div class="feedback-title" id="feedbackTitle"></div>
+    <div id="feedbackText"></div>
+    <div class="feedback-source" id="feedbackSource"></div>
+  </div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Volgende vraag →</button>
+</div>
+
+<!-- RESULT -->
+
+<div class="result-screen" id="resultScreen">
+  <div class="result-emoji" id="resultEmoji">🏆</div>
+  <div class="result-score" id="resultScore"></div>
+  <div class="result-label" id="resultLabel"></div>
+  <div class="result-breakdown">
+    <div class="rb good" id="rbGood"></div>
+    <div class="rb bad" id="rbBad"></div>
+  </div>
+  <div class="result-cats" id="resultCats"></div>
+  <div class="result-btns">
+    <button class="restart-btn" onclick="restartExam()">🔄 Opnieuw oefenen</button>
+    <button class="restart-btn sec" onclick="goHome()">🏠 Kies modus</button>
+  </div>
+</div>
+
+</div></div>
+
+<script>
+const Q = [
+// ── BOTTEN & GERAAMTE ──────────────────────────────────────────
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"Hoeveel botten telt het menselijk skelet?",
+opts:["Meer dan 200 (ca. 212)","Precies 150","Minder dan 100","Exact 300"],c:0,
+src:"Hfst. 2, p. Geraamte",
+exp:"Het geraamte bestaat uit meer dan 200 beenderen (212 stuks) die het lichaam stevigheid geven."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"Welk bot is de mandibula?",
+opts:["Bovenkaak (maxilla)","Onderkaak","Jukbeen (os zygomaticum)","Wandbeen (os parietale)"],c:1,
+src:"Hfst. 2, p. Hoofd",
+exp:"De mandibula = onderkaak. Het is het enige beweeglijke bot van de schedel. De bovenkaak heet maxilla."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"Hoeveel halswervels heeft de wervelkolom?",
+opts:["5","7","12","4"],c:1,
+src:"Hfst. 2, p. Wervelkolom",
+exp:"7 halswervels (cervicaal), 12 borstwervels (thoracaal), 5 lendenwervels (lumbaal)."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"De atlas is:",
+opts:["De 1e halswervel die het hoofd draagt","De 5e lendewervel","Het heiligbeen","De 12e borstwervel"],c:0,
+src:"Hfst. 2, p. Halswervels",
+exp:"De atlas is de bovenste (1e) halswervel. De 2e halswervel is de draaier (axis); de atlas draait eromheen waardoor het hoofd kan roteren."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"Het os sacrum bestaat uit hoeveel versmolten wervels?",
+opts:["3","4","5","7"],c:2,
+src:"Hfst. 2, p. Wervelkolom",
+exp:"Het os sacrum (heiligbeen) bestaat uit 5 versmolten vertebrae sacralis."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"Welke drie botten vormen samen het heupbeen (os coxa)?",
+opts:["Femur, tibia en fibula","Darmbeen (ilium), schaambeen (pubis) en zitbeen (ischium)","Heiligbeen, staartbeen en darmbeen","Femur, patella en tibia"],c:1,
+src:"Hfst. 2, p. Bekkengordel",
+exp:"Os coxa = os ilium (darmbeen) + os pubis (schaambeen) + os ischium (zitbeen). Bij volwassenen zijn deze vergroeid tot één bot."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"Hoeveel paar ribben heeft de mens?",
+opts:["10","12","14","8"],c:1,
+src:"Hfst. 2, p. Costae",
+exp:"12 paar costae: 7 paar ware ribben (aan sternum), 3 paar valse ribben (ribbenbogen) en 2 paar zwevende ribben."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"Wat is de Latijnse naam voor het dijbeen?",
+opts:["Tibia","Fibula","Femur","Humerus"],c:2,
+src:"Hfst. 2, p. Been",
+exp:"Femur = dijbeen. Tibia = scheenbeen, fibula = kuitbeen, humerus = opperarmbeen."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 4 – Kniegewricht",
+q:"Wat is de patella?",
+opts:["Het hielbeen","De knieschijf","Het sprongbeen (talus)","Het spaakbeen (radius)"],c:1,
+src:"Hfst. 4, p. Kniegewricht",
+exp:"De patella is de knieschijf. Het ligt in de pees van de m. quadriceps femoris en glijdt over het kniegewricht."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"De clavicula is:",
+opts:["Schouderblad","Sleutelbeen","Borstbeen (sternum)","Opperarmbeen"],c:1,
+src:"Hfst. 2, p. Schoudergordel",
+exp:"De clavicula = sleutelbeen. S-vormig steunpilaar dat het schouderblad naar buiten draagt en sternum met acromion verbindt."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 4 – Femur",
+q:"Welk bot heeft de linea aspera (ruwe lijn) op de achterzijde?",
+opts:["Tibia","Humerus","Femur (dijbeen)","Radius"],c:2,
+src:"Hfst. 4, p. Femur",
+exp:"De linea aspera is een ruwe lijn op de achterzijde van het femur. Hier hechten diverse spieren aan, waaronder de adductoren."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 2 – Geraamte",
+q:"Wat is een scoliose?",
+opts:["Een overmatige kyfose (achterwaartse bolling)","Een overmatige lordose (voorwaartse holling)","Een abnormale zijwaartse kromming van de wervelkolom","Een wervelbreuk"],c:2,
+src:"Hfst. 2, p. Wervelkolom",
+exp:"Scoliose = abnormale frontale (zijwaartse) kromming. Lordose en kyfose zijn krommingen in het sagittale vlak."},
+
+{cat:"Botten & Geraamte",wp:"Hfst. 4 – Voet",
+q:"De voet bestaat uit hoeveel voetwortelbeentjes (tarsalia)?",
+opts:["5","6","7","8"],c:2,
+src:"Hfst. 4, p. Voet",
+exp:"De voet bestaat uit 7 voetwortelbeentjes (tarsalia), 5 middenvoetsbeentjes (metatarsalia) en 14 teenkootjes (falangen)."},
+
+// ── GEWRICHTEN ───────────────────────────────────────────────
+{cat:"Gewrichten",wp:"Hfst. 1 – Gewrichten",
+q:"Het heupgewricht en schoudergewricht zijn voorbeelden van:",
+opts:["Scharniergewricht","Zadelgewricht","Kogelgewricht","Rolgewricht"],c:2,
+src:"Hfst. 1, p. Typen gewrichten",
+exp:"Kogelgewricht: 3-assig, 3 graden van vrijheid. Kogel in een kom = grote bewegingsvrijheid."},
+
+{cat:"Gewrichten",wp:"Hfst. 1 – Gewrichten",
+q:"Het kniegewricht is een voorbeeld van:",
+opts:["Kogelgewricht","Scharniergewricht","Zadelgewricht","Vlakgewricht"],c:1,
+src:"Hfst. 1, p. Typen gewrichten",
+exp:"Scharniergewricht: 1-assig, 1 graad van vrijheid (buigen en strekken)."},
+
+{cat:"Gewrichten",wp:"Hfst. 4 – Kniegewricht",
+q:"Welke structuur in de knie dient als schokdemper en aanpassingselement?",
+opts:["Kruisband","Ligamentum collaterale","Meniscus","Patella"],c:2,
+src:"Hfst. 4, p. Kniegewricht",
+exp:"De menisci zijn halvemaanvormige kraakbeentjes die schokken dempen, energie absorberen en de gewrichtsvlakken beter op elkaar laten aansluiten."},
+
+{cat:"Gewrichten",wp:"Hfst. 1 – Diarthrosen",
+q:"Welke vloeistof smeert het gewricht?",
+opts:["Lymfe","Synovia (gewrichtssmeer)","Bloed","Hormoonvloeistof"],c:1,
+src:"Hfst. 1, p. Diarthrosen",
+exp:"De synoviale membraan (binnenste kapsellaag) scheidt synovia (gewrichtssmeer) af. Dit smeert en voedt het gewricht."},
+
+{cat:"Gewrichten",wp:"Hfst. 4 – Bovenste spronggewricht",
+q:"Het bovenste spronggewricht (art. talo-cruralis) is:",
+opts:["Kogelgewricht","Rolgewricht","Scharniergewricht","Zadelgewricht"],c:2,
+src:"Hfst. 4, p. Bovenste spronggewricht",
+exp:"Scharniergewricht. Bewegingen: plantairflexie en dorsaalflexie."},
+
+// ── BEWEGINGSLEER ─────────────────────────────────────────────
+{cat:"Bewegingsleer",wp:"Hfst. 1 – Anatomie",
+q:"Wat is abductie?",
+opts:["Beweging naar de mediaanlijn toe","Beweging van de mediaanlijn af","Draaien naar binnen","Naar voren buigen"],c:1,
+src:"Hfst. 1, p. Bewegingsrichtingen",
+exp:"Abductie = van de mediaanlijn af. Adductie = naar de mediaanlijn toe. 'Ab' = weg, 'Ad' = naar."},
+
+{cat:"Bewegingsleer",wp:"Hfst. 1 – Anatomie",
+q:"Pronatie van de onderarm is:",
+opts:["Handpalm omhoog draaien","Handrug omhoog draaien (naar binnen)","Buigen elleboog","Strekken pols"],c:1,
+src:"Hfst. 1, p. Bewegingen hand",
+exp:"Pronatie = hand naar binnen draaien, handrug omhoog. Supinatie = handpalm omhoog ('soep eten')."},
+
+{cat:"Bewegingsleer",wp:"Hfst. 1 – Anatomie",
+q:"Hoofd staat ver naar voren op de nek. Hoe heet dit?",
+opts:["Retroflexie hoofd","Lordose","Anteflexie/protrusie cervicale wervelkolom","Kyfose"],c:2,
+src:"Hfst. 1, p. Richtingen",
+exp:"Hoofd ver naar voren = anteflexie/protrusie cervicale wervelkolom. Veelvoorkomende houdingsfout."},
+
+{cat:"Bewegingsleer",wp:"Hfst. 1 – Anatomie",
+q:"Schouderbladen worden naar voren/buiten geschoven. Hoe heet dit?",
+opts:["Retractie","Elevatie","Protractie","Depressie"],c:2,
+src:"Hfst. 1 / Hfst. 5",
+exp:"Protractie = schouderbladen van de wervelkolom af. Retractie = naar de wervelkolom toe."},
+
+{cat:"Bewegingsleer",wp:"Hfst. 4 – Voet",
+q:"Eversie van de voet is:",
+opts:["Plantairflexie + adductie + supinatie","Dorsaalflexie + abductie + pronatie","Plantairflexie + abductie + pronatie","Dorsaalflexie + adductie + supinatie"],c:1,
+src:"Hfst. 4, p. Onderste spronggewricht",
+exp:"Eversie = dorsaalflexie + abductie + pronatie. Inversie = plantairflexie + adductie + supinatie."},
+
+{cat:"Bewegingsleer",wp:"Hfst. 1 – Anatomie",
+q:"Op welke as vindt abductie/adductie van de arm plaats?",
+opts:["Longitudinale as","Transversale as","Sagittale as","Frontale as"],c:2,
+src:"Hfst. 1, p. Assen",
+exp:"Sagittale as (voor-achterwaarts): abductie/adductie. Transversale as: anteflexie/retroflexie. Longitudinale as: rotatie."},
+
+// ── SPIEREN ARM ───────────────────────────────────────────────
+{cat:"Spieren – Arm",wp:"Hfst. 5 – Spieren",
+q:"Wat is de functie van de m. biceps brachii?",
+opts:["Strekken onderarm","Buigen onderarm + supinatie","Adductie arm","Endorotatie schouder"],c:1,
+src:"Hfst. 5, p. m. biceps brachii",
+exp:"M. biceps brachii: buiger (flexor) van de onderarm én supinator. Beide koppen ontspringen aan het schouderblad."},
+
+{cat:"Spieren – Arm",wp:"Hfst. 5 – Spieren",
+q:"Welke spier strekt de arm (extensie elleboog)?",
+opts:["M. biceps brachii","M. brachialis","M. triceps brachii","M. coracobrachialis"],c:2,
+src:"Hfst. 5, p. m. triceps brachii",
+exp:"M. triceps brachii (driehoofdige armstrekspier) = extensie onderarm. Antagonist van de m. biceps."},
+
+{cat:"Spieren – Arm",wp:"Hfst. 5 – Spieren",
+q:"De m. latissimus dorsi voert uit:",
+opts:["Abductie + exorotatie arm","Adductie + endorotatie arm (arm omlaag trekken)","Elevatie schouderblad","Flexie elleboog"],c:1,
+src:"Hfst. 5, p. m. latissimus dorsi",
+exp:"M. latissimus dorsi (brede rugspier, grootste spier): adductie, endorotatie en retroflexie arm. Trekt arm omlaag."},
+
+{cat:"Spieren – Arm",wp:"Hfst. 5 – Spieren",
+q:"Welke spier voert abductie van de arm uit (hoofdbeweger)?",
+opts:["M. pectoralis major","M. subscapularis","M. deltoideus","M. teres major"],c:2,
+src:"Hfst. 5, p. m. deltoideus",
+exp:"M. deltoideus pars acromialis: hoofdverantwoordelijk voor abductie. M. supraspinatus initieert de beweging."},
+
+{cat:"Spieren – Arm",wp:"Hfst. 3 – Schouder",
+q:"Welke spieren vormen de rotatormanchet?",
+opts:["M. biceps, triceps, deltoideus","M. subscapularis, supraspinatus, infraspinatus (+ teres minor)","M. pectoralis major, latissimus dorsi, teres major","M. trapezius, rhomboideus, levator scapulae"],c:1,
+src:"Hfst. 3, p. Schoudergewricht",
+exp:"Rotatormanchet: m. subscapularis, m. supraspinatus, m. infraspinatus en m. teres minor. Stabiliseren het schoudergewricht."},
+
+{cat:"Spieren – Arm",wp:"Hfst. 5 – Spieren",
+q:"De m. pectoralis major voert NIET uit:",
+opts:["Adductie arm","Endorotatie arm","Abductie arm","Anteflexie arm"],c:2,
+src:"Hfst. 5, p. m. pectoralis major",
+exp:"M. pectoralis major doet adductie, endorotatie en anteflexie. NIET abductie — dat is de m. deltoideus."},
+
+{cat:"Spieren – Arm",wp:"Hfst. 5 – Spieren",
+q:"Welke spier zorgt voor exorotatie van de arm?",
+opts:["M. subscapularis","M. teres major","M. infraspinatus","M. latissimus dorsi"],c:2,
+src:"Hfst. 5, p. m. infraspinatus",
+exp:"M. infraspinatus (ondergraatsspier) = exorotatie arm. M. subscapularis en m. teres major doen endorotatie."},
+
+{cat:"Spieren – Arm",wp:"Hfst. 5 – Spieren",
+q:"Wat doet de m. trapezius pars descendens (bovenste deel)?",
+opts:["Trekt schouderblad naar beneden","Heft schouderblad op + exorotatie schouderblad + nekextensie","Protractie schouderblad","Adductie schouderblad"],c:1,
+src:"Hfst. 5, p. m. trapezius",
+exp:"M. trapezius pars descendens: schouderblad heffen, exorotatie schouderblad, nek strekken/retroflexie hoofd."},
+
+{cat:"Spieren – Arm",wp:"Hfst. 5 – Spieren",
+q:"De m. serratus anterior hecht aan op:",
+opts:["Buitenrand schouderblad","Mediale rand scapula","Processus coracoideus","Acromion"],c:1,
+src:"Hfst. 5, p. m. serratus anterior",
+exp:"M. serratus anterior: van 1e-9e rib naar mediale rand van de scapula. Protractie schouderblad, houdt scapula tegen borstkas."},
+
+// ── SPIEREN BEEN ──────────────────────────────────────────────
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"Welke drie spieren vormen de 'hamstrings'?",
+opts:["M. rectus femoris, vastus lateralis, vastus medialis","M. biceps femoris, semitendinosus, semimembranosus","M. gracilis, sartorius, adductor longus","M. gluteus maximus, biceps femoris, gastrocnemius"],c:1,
+src:"Hfst. 5, p. Hamstrings",
+exp:"Hamstrings: m. biceps femoris + m. semitendinosus + m. semimembranosus. Functie: knieflexie + heupextensie (retroversie)."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"Welk hoofd van de quadriceps buigt OOK in het heupgewricht?",
+opts:["M. vastus lateralis","M. vastus medialis","M. vastus intermedius","M. rectus femoris"],c:3,
+src:"Hfst. 5, p. m. quadriceps femoris",
+exp:"M. rectus femoris ontspringt aan het darmbeen → buigt ook het heup. De andere drie koppen strekken alleen de knie."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"De m. gluteus maximus voert uit:",
+opts:["Flexie heup + endorotatie","Strekking dij + exorotatie dijbeen","Abductie dijbeen","Plantairflexie voet"],c:1,
+src:"Hfst. 5, p. m. gluteus maximus",
+exp:"M. gluteus maximus: strekking van de dij (bij gefixeerde romp), exorotatie dijbeen, rompstrekking. Krachtigste bilspier."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"De m. soleus wordt specifiek gerekt bij:",
+opts:["Gestrekte knie + dorsaalflexie","Gebogen knie + dorsaalflexie","Gestrekte knie + plantairflexie","Gebogen knie + plantairflexie"],c:1,
+src:"Hfst. 5, p. m. soleus",
+exp:"M. soleus kruist het kniegewricht NIET → bij gebogen knie + dorsaalflexie rek je specifiek de soleus. Bij gestrekte knie rek je ook de m. gastrocnemius."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"Welke spier is de antagonist van de m. tibialis anterior?",
+opts:["M. tibialis posterior","M. gastrocnemius + m. soleus","M. extensor digitorum longus","M. peroneus brevis"],c:1,
+src:"Hfst. 5, p. m. tibialis anterior",
+exp:"M. tibialis anterior = dorsaalflexie. Antagonisten zijn de plantairflexoren: m. gastrocnemius + m. soleus (m. triceps surae)."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"De m. iliopsoas heeft als voornaamste functie:",
+opts:["Extensie heup + endorotatie","Heupflexie (anteversie) + buitenwaarts draaien dijbeen","Adductie dijbeen","Abductie dijbeen + kniegextensie"],c:1,
+src:"Hfst. 5, p. m. iliopsoas",
+exp:"M. iliopsoas (m. iliacus + m. psoas major): bij gefixeerde romp = heffen dijbeen (anteversie) + exorotatie. Bij gefixeerd been = rompflexie."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"Welke spiergroep voert adductie van het dijbeen uit?",
+opts:["Hamstrings","Adductoren (adductor longus, brevis, magnus, gracilis)","Quadriceps","Glutealen"],c:1,
+src:"Hfst. 5, p. Adductoren",
+exp:"De adductoren (m. adductor longus/brevis/magnus, m. gracilis, m. pectineus) trekken het been naar de middenlijn."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"M. gluteus medius en minimus zijn de belangrijkste:",
+opts:["Adductoren dijbeen","Extensoren knie","Abductoren dijbeen (stabiliseren bekken bij éénbeensstaan)","Plantairflexoren voet"],c:2,
+src:"Hfst. 5, p. m. gluteus medius / minimus",
+exp:"M. gluteus medius en minimus = voornaamste abductoren dijbeen. Stabiliseren bekken bij lopen. Uitval geeft Trendelenburg-teken."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"De twee voornaamste plantairflexoren zijn:",
+opts:["M. tibialis anterior + extensor digitorum longus","M. gastrocnemius + m. soleus (m. triceps surae)","M. peroneus longus + tibialis posterior","M. flexor hallucis + extensor hallucis"],c:1,
+src:"Hfst. 5, p. m. gastrocnemius / m. soleus",
+exp:"M. gastrocnemius + m. soleus = m. triceps surae. Hechten via de achillespees aan het hielbeen (tuber calcanei). Voornaamste plantairflexoren."},
+
+{cat:"Spieren – Been",wp:"Hfst. 5 – Spieren",
+q:"De m. sartorius (kleermakersspier) voert uit:",
+opts:["Strekken knie","Buiging knie + naar binnen draaien onderbeen + exorotatie dijbeen + heupflexie","Adductie dijbeen","Plantairflexie voet"],c:1,
+src:"Hfst. 5, p. m. sartorius",
+exp:"M. sartorius (langste spier van het lichaam): knieflexie + endorotatie onderbeen + exorotatie dijbeen + heupflexie. Typische kleermakerszit-houding."},
+
+// ── SPIEREN ROMP/RUG ──────────────────────────────────────────
+{cat:"Spieren – Romp/Rug",wp:"Hfst. 5 – Spieren",
+q:"Welke is de BELANGRIJKSTE ademhalingsspier?",
+opts:["M. intercostalis externus","M. rectus abdominis","Diafragma (middenrif)","M. scaleni"],c:2,
+src:"Hfst. 5, p. Diafragma",
+exp:"Het diafragma = belangrijkste ademhalingsspier. Bij inademing daalt het, borstholte vergroot, lucht stroomt in."},
+
+{cat:"Spieren – Romp/Rug",wp:"Hfst. 5 – Spieren",
+q:"De m. rectus abdominis (rechte buikspier) hecht (distaal) aan op:",
+opts:["Darmbeen en schaambeen","Processus xiphoideus (bovenste aanhechting) en os pubis (onderste)","Crista iliaca en 12e rib","Sternum en darmbeen"],c:1,
+src:"Hfst. 5, p. m. rectus abdominis",
+exp:"M. rectus abdominis: Origo = buitenvlak 5e-7e rib + processus xiphoideus. Insertio = os pubis. Functie: rompflexie, bekkenfixatie."},
+
+{cat:"Spieren – Romp/Rug",wp:"Hfst. 5 – Spieren",
+q:"Welke spier zorgt voor retroflexie (strekken) van de rug?",
+opts:["M. obliquus externus","M. rectus abdominis","M. erector spinae","M. transversus abdominis"],c:2,
+src:"Hfst. 5, p. m. erector spinae",
+exp:"M. erector spinae (lange rugstrekkers) = retroflexie wervelkolom + houdt wervelkolom in stand. Bilateraal: strekking. Unilateraal: lateraalflexie."},
+
+// ── MASSAGE & HANDGREPEN ──────────────────────────────────────
+{cat:"Massage & Handgrepen",wp:"Hfst. 43 – Theorie Massage",
+q:"Welke vijf klassieke massagehandgrepen zijn er?",
+opts:["Effleurage, pétrissage, frictie, vibratie, tapotage","Effleurage, kneding, taping, rekking, shaking","Druk, wrijving, trillen, kloppen, strijken","Superficieel, diep, circulair, lineair, kruislings"],c:0,
+src:"Hfst. 43, p. Massage handgrepen",
+exp:"De 5 klassieke handgrepen (Franse namen): effleurage (strijking), pétrissage (kneding), frictie (wrijving), vibratie (trilling) en tapotage (klopping)."},
+
+{cat:"Massage & Handgrepen",wp:"Hfst. 43 – Theorie Massage",
+q:"Bij welk type massage sluit je af met schuddingen + slot-effleurage?",
+opts:["Activerende massage","Sederende (ontspannende) massage","Dieptemassage","Sportmassage vóór wedstrijd"],c:1,
+src:"Hfst. 43, p. Sederende massage",
+exp:"Sederende massage = ontspanning. Afsluiten met schuddingen + slot-effleurage van het hele gebied. Tapotement hoort bij activerende massage."},
+
+{cat:"Massage & Handgrepen",wp:"Hfst. 43 – Theorie Massage",
+q:"Wat is hyperemie bij massage?",
+opts:["Verhoogde spierspanning","Verbeterde arteriële/capillaire doorbloeding (roodheid, warmte)","Vochtophoping na massage","Een type spierscheur"],c:1,
+src:"Hfst. 43, p. Dr. Kirchberg",
+exp:"Hyperemie = verbeterde bloedtoevoer. Dr. Kirchberg introduceerde dit: massage verbetert arteriële én capillaire circulatie, niet alleen veneuze."},
+
+{cat:"Massage & Handgrepen",wp:"Hfst. 43 – Theorie Massage",
+q:"Wat zijn myogelosen?",
+opts:["Slijmbeursontsteking","Lokale bolvormige verhardingen in de spier door zuurstoftekort","Scheurtjes in spierfascie","Tendinitis"],c:1,
+src:"Hfst. 43, p. Myogelosen / Dr. Muller",
+exp:"Myogelosen = lokale bolvormige spierverhardingen door zuurstoftekort en ophoping van afvalstoffen. Beschreven door Dr. Muller (1915)."},
+
+{cat:"Massage & Handgrepen",wp:"Hfst. 43 – Massageprogramma",
+q:"Volgorde masseren been (achterzijde, proximaal naar distaal):",
+opts:["Voet → onderbeen → knie → bil","Bil → hamstrings → onderbeen → voet","Onderbeen → hamstrings → bil","Knie → bil → hamstrings → voet"],c:1,
+src:"Hfst. 43, p. Massageprogramma been",
+exp:"Van proximaal naar distaal: bil → hamstrings → onderbeen → voet. Altijd van het centrum naar de periferie."},
+
+{cat:"Massage & Handgrepen",wp:"Hfst. 43 – Massage",
+q:"Een cliënt wordt duizelig na de massage. Wat adviseer je?",
+opts:["Direct rechtop laten staan","Rustig blijven liggen, langzaam opstaan, niet direct autorijden","Meteen 112 bellen","Koffie geven"],c:1,
+src:"Hfst. 43, p. Reacties na massage",
+exp:"Duizeligheid na massage = orthostatische hypotensie (bloeddrukdaling door diepe ontspanning). Rustig blijven liggen, langzaam opstaan, voldoende drinken."},
+
+// ── CONTRA-INDICATIES ─────────────────────────────────────────
+{cat:"Contra-indicaties",wp:"Hfst. 43 – Contra-indicaties",
+q:"Welke is een ABSOLUTE contra-indicatie voor massage?",
+opts:["Spierpijn na training","Lichte vermoeidheid","Koorts","Littekenweefsel ouder dan 6 weken"],c:2,
+src:"Hfst. 43, p. Absolute contra-indicaties",
+exp:"Absolute contra-indicaties: koorts, infectieziekten, extreme vermoeidheid/uitputting, pathologie (intern/neurologisch/orthopedisch/traumatisch/psychisch). Bij koorts mag NIET worden gemasseerd."},
+
+{cat:"Contra-indicaties",wp:"Hfst. 43 – Contra-indicaties",
+q:"Verstuikte enkel — wat is van toepassing?",
+opts:["Absolute contra-indicatie: niets masseren","Relatieve plaatselijke contra-indicatie: enkel/voet NIET, rest wel","Direct diep masseren voor doorbloeding","Tapen en direct masseren"],c:1,
+src:"Hfst. 43, p. Relatieve plaatselijke contra-indicaties",
+exp:"Relatieve plaatselijke contra-indicatie: het aangedane gebied (enkel + voet) niet masseren, de rest van het lichaam wel."},
+
+{cat:"Contra-indicaties",wp:"Hfst. 43 – Contra-indicaties",
+q:"Hypertoon vs hypotoon — wat is correct?",
+opts:["Hypertoon = te weinig spierspanning, hypotoon = te veel","Hypertoon = te veel spierspanning (stijf), hypotoon = te weinig (slap)","Ze zijn synoniemen","Hypertoon = ontstoken, hypotoon = normaal"],c:1,
+src:"Hfst. 43, p. Dr. Muller / hypertonie",
+exp:"Hypertonie = verhoogde spierspanning (stijf/verkrampt). Hypotonie = verlaagde spierspanning (slap/zwak). Begrip ingevoerd door Dr. Muller (1915)."},
+
+{cat:"Contra-indicaties",wp:"Hfst. 43 – Contra-indicaties",
+q:"Bij oedeem is de aanbevolen behandeling:",
+opts:["Diep masseren voor drainage","Geen massage; optie: manuele lymfedrainage","Tapen over het oedeem","Warmteapplicatie"],c:1,
+src:"Hfst. 43, p. Relatieve plaatselijke contra-indicaties",
+exp:"Bij oedeem: NIET masseren. Aanbevolen alternatief: manuele lymfedrainage (MLD)."},
+
+// ── EHBO & REANIMATIE ─────────────────────────────────────────
+{cat:"EHBO & Reanimatie",wp:"Hfst. 29 / 45 – EHBO",
+q:"Verhouding borstcompressies : beademingen bij reanimatie volwassene?",
+opts:["15 : 2","30 : 2","20 : 1","10 : 2"],c:1,
+src:"Hfst. 29 / 45, p. Reanimatie",
+exp:"Basisreanimatie volwassene: 30 borstcompressies : 2 beademingen. Herhalen tot hulp aanwezig."},
+
+{cat:"EHBO & Reanimatie",wp:"Hfst. 29 – EHBO",
+q:"Bewusteloos slachtoffer ademt normaal. Wat doe je?",
+opts:["Direct borstcompressies","Stabiele zijligging + 112 bellen","Niets doen","Water geven"],c:1,
+src:"Hfst. 29, p. Bewusteloosheid",
+exp:"Bewusteloos maar ademend: stabiele zijligging + 112. Hoofd achterover kantel voor vrije luchtweg."},
+
+{cat:"EHBO & Reanimatie",wp:"Hfst. 29 – Hersenletsel",
+q:"Sporter na hoofdbotsing wordt steeds suffer. Wanneer arts?",
+opts:["Na 10 min bewusteloosheid","Meteen — toenemende sufheid na hoofdletsel is alarm (hersenbloeding mogelijk)","Pas bij braken","Pas op eigen verzoek"],c:1,
+src:"Hfst. 29, p. Hersenbloeding",
+exp:"Toenemende sufheid na hoofdletsel = alarmsignaal voor hersenbloeding. METEEN arts/112."},
+
+{cat:"EHBO & Reanimatie",wp:"Hfst. 29 – Hersenletsel",
+q:"Verschijnselen hersenschudding zijn:",
+opts:["Blauw oog, koorts, trage hartslag","Misselijkheid, retrograde amnesie, tijdelijke bewusteloosheid, gedesoriënteerd","Hoge bloeddruk, koorts, stuipen","Zwelling knie, instabiliteit"],c:1,
+src:"Hfst. 29, p. Hersenschudding",
+exp:"Hersenschudding: misselijkheid, braakneiging, hoofdpijn, retrograde amnesie, tijdelijke bewusteloosheid, gedesoriënteerd in tijd/plaats."},
+
+{cat:"EHBO & Reanimatie",wp:"Hfst. 29 – EHBO",
+q:"Correcte volgorde stabiele zijligging:",
+opts:["Benen optillen → arm uitleggen → draaien → hoofd kantel","Hoofd achterover → borstcompressies → draaien","Arm naast lichaam → andere arm over borst → been optrekken → draaien → hoofd kantel","Benen kruisen → draaien → arm onder hoofd"],c:2,
+src:"Hfst. 29, p. Stabiele zijligging",
+exp:"Stabiele zijligging: (1) arm wijd neer (handpalm omhoog), (2) andere arm over borst handrug tegen wang, (3) ver been optrekken, (4) draaien naar zijligging, (5) hoofd achterover kantel."},
+
+{cat:"EHBO & Reanimatie",wp:"Hfst. 44 – Sporthygiëne",
+q:"Correcte volgorde handen wassen:",
+opts:["Zeep → nat → wrijven → drogen","Nat → zeep → 15-30s wrijven → afspoelen → drogen","Drogen → nat → zeep → wrijven","Nat → afspoelen → zeep → drogen"],c:1,
+src:"Hfst. 44, p. Hygiëne",
+exp:"(1) Nat maken (2) Zeep (3) 15-30 sec grondig wrijven, ook tussen vingers (4) Afspoelen (5) Drogen met schone handdoek. Altijd voor én na de massage!"},
+
+// ── BLESSURES ─────────────────────────────────────────────────
+{cat:"Blessures",wp:"Hfst. 37 – Sportongevallen",
+q:"Kenmerken bursitis (slijmbeursontsteking):",
+opts:["Knapgeluid + instabiliteit","Vocht en zwelling bursa door overprikkeling slijmvlies","Zichtbare spierwal","Blauw-zwarte verkleuring + botpijn"],c:1,
+src:"Hfst. 37, p. Bursitis",
+exp:"Bursitis: overprikkeling slijmvlies van de bursa → vocht + zwelling. Oorzaak: kleine chronische traumata."},
+
+{cat:"Blessures",wp:"Hfst. 37 – Sportongevallen",
+q:"Wat is hydrops?",
+opts:["Spierscheur","Vochtophoping in het gewricht","Slijmbeursontsteking","Verhoogde spierspanning"],c:1,
+src:"Hfst. 37, p. Hydrops",
+exp:"Hydrops = vochtophoping in gewricht (meest: knie). Veel hydrops = 3x zo langzaam herstel. Rust is noodzakelijk zolang er vocht aanwezig is."},
+
+{cat:"Blessures",wp:"Hfst. 5 / Hfst. 20 – Reflexen",
+q:"Wat is de myotatische reflex?",
+opts:["Spier ontspant bij overbelasting","Spier trekt samen als reactie op rek (via spierspoeltjes)","Hartreflex bij inspanning","Reflex die pols regelt"],c:1,
+src:"Hfst. 5 / Hfst. 20, p. Reflexen",
+exp:"Myotatische reflex (spiereigen reflex): rek op spier → spierspoeltjes → ruggenmerg → spier trekt samen. Basis van het kniepeesreflex."},
+
+{cat:"Blessures",wp:"Hfst. 37 – Sportongevallen",
+q:"Tennis-elleboog — waar zit de pijn?",
+opts:["Epicondylus medialis (binnenzijde)","Epicondylus lateralis (buitenzijde)","In de onderarm binnenzijde","In de biceps"],c:1,
+src:"Hfst. 37, p. Tennis-elleboog",
+exp:"Tennis-elleboog (epicondylitis lateralis) = pijn epicondylus lateralis (buitenzijde), overbelasting extensoren. Golf-elleboog = epicondylitis medialis (binnenzijde)."},
+
+// ── TAPEN ─────────────────────────────────────────────────────
+{cat:"Tapen",wp:"Hfst. 40 – Tapen",
+q:"Bij welk gewricht worden stijgbeugels als tapetechniek gebruikt?",
+opts:["Kniegewricht","Schoudergewricht","Enkelgewricht","Polsgewricht"],c:2,
+src:"Hfst. 40, p. Enkeltaping",
+exp:"Stijgbeugels (stirrups) = U-vormige tapestroken bij enkeltaping. Gaan van binnenzijde onderbeen onder hielbeen naar buitenzijde. Ondersteunen de laterale enkelbanden."},
+
+{cat:"Tapen",wp:"Hfst. 40 – Tapen",
+q:"Doel van tapen bij enkeldistorsie:",
+opts:["Bloedcirculatie versnellen","Stabilisatie + ondersteuning gewricht + beperken verdere schade","Gewricht verwarmen","Spierherstel stimuleren"],c:1,
+src:"Hfst. 40, p. Tapen",
+exp:"Tapen bij enkeldistorsie: stabilisatie + gewrichtsbescherming + beperking abnormale bewegingen + preventie verdere schade."},
+
+// ── FYSIOLOGIE & TRAINING ─────────────────────────────────────
+{cat:"Fysiologie & Training",wp:"Hfst. 24 – Inspanningsfysiologie",
+q:"Wat is supercompensatie?",
+opts:["Te hard trainen → blessure","Na belasting + herstel stijgt prestatieniveau boven oorspronkelijk niveau uit","Een massagetechniek","Een supplement"],c:1,
+src:"Hfst. 24, p. Supercompensatie",
+exp:"Supercompensatie: belastingfase → compensatiefase → overcompensatiefase (niveau hoger dan voor training). Timing volgende training is cruciaal."},
+
+{cat:"Fysiologie & Training",wp:"Hfst. 24 – Inspanningsfysiologie",
+q:"Reversibiliteit bij training betekent:",
+opts:["Spieren herstellen nooit volledig","Trainingseffecten gaan verloren bij stopzetten training","Geen verbetering na bepaalde leeftijd","Overtraining is onomkeerbaar"],c:1,
+src:"Hfst. 24, p. Reversibiliteit",
+exp:"Reversibiliteit = omkeerbaarheid: trainingseffecten gaan net zo snel verloren als opgebouwd. Uithoudingsvermogen neemt het snelst af."},
+
+{cat:"Fysiologie & Training",wp:"Hfst. 24 – Inspanningsfysiologie",
+q:"Principe van specificiteit bij training:",
+opts:["Alle sporten verbeteren dezelfde functies","Lichaam past zich specifiek aan in richting van de belasting","Elke sporter hetzelfde programma","Kracht en uithouding verbeteren altijd samen"],c:1,
+src:"Hfst. 24, p. Specificiteit",
+exp:"Specificiteit: alleen wat getraind wordt, verbetert. Aëroob trainen verbetert VO2-max, niet snelkracht. Sprinters hebben weinig baat bij duurwerk."},
+
+{cat:"Fysiologie & Training",wp:"Hfst. 24 – Energiesystemen",
+q:"Verschil aëroob en anaëroob energiesysteem:",
+opts:["Aëroob = met zuurstof (duurinspanning), anaëroob = zonder zuurstof (explosief)","Aëroob = zonder zuurstof, anaëroob = met zuurstof","Aëroob = krachtsport, anaëroob = duursport","Er is geen verschil"],c:0,
+src:"Hfst. 24, p. Energiesystemen",
+exp:"Aëroob = met zuurstof, voor langdurige inspanning. Anaëroob = zonder zuurstof, korte explosieve inspanning. Bij anaëroob ontstaat melkzuur."},
+
+// ── HUID ──────────────────────────────────────────────────────
+{cat:"Huid",wp:"Hfst. 18 – De huid",
+q:"Waar wordt pigment (melanine) gevormd?",
+opts:["In de lederhuid (dermis)","In de epidermis (opperhuid) — cellen met pigmentkorrels","In het onderhuids vetweefsel","In de zweetklieren"],c:1,
+src:"Hfst. 18, p. Opperhuid",
+exp:"Melanine wordt gevormd in de cellen van de epidermis. UV-blootstelling → meer pigmentaanmaak → huid bruin. Beschermt onderliggend weefsel."},
+
+{cat:"Huid",wp:"Hfst. 18 – De huid",
+q:"De huid bestaat primair uit welke twee hoofdlagen?",
+opts:["Drie lagen: epidermis, dermis, subcutis","Epidermis (opperhuid) en dermis/corium (lederhuid)","Vier lagen","Één laag"],c:1,
+src:"Hfst. 18, p. Bouw huid",
+exp:"Huid = epidermis + dermis/corium. Onder de huid ligt de subcutis (niet tot de huid zelf gerekend in strikte zin)."},
+
+{cat:"Huid",wp:"Hfst. 18 – De huid",
+q:"Wat bevindt zich in de lederhuid?",
+opts:["Alleen hoornlaag + pigmentcellen","Haarvaten, zenuwtakjes, haarspieren, talgklieren en receptoren","Alleen vetcellen","Alleen zweetklieren"],c:1,
+src:"Hfst. 18, p. Lederhuid",
+exp:"Lederhuid (dermis): collageen bindweefsel + elastische vezels + haarvaten + zenuwtakjes + haarspieren + talgklieren + receptoren (pijn/tast/temperatuur)."},
+
+// ── CLIËNTDOSSIER & REGELS ────────────────────────────────────
+{cat:"Cliëntdossier & Regels",wp:"WP2 – Wetgeving / NGS",
+q:"Wat mag in het cliëntendossier worden opgenomen?",
+opts:["Niets — AVG verbiedt dit","Alleen behandelverslagen","Persoonsgegevens, anamnesegegevens, behandelplannen en verslagen","Alleen wat cliënt zelf invult"],c:2,
+src:"WP2, p. Dossier / AVG",
+exp:"In het dossier: persoonsgegevens + anamnesegegevens + behandelplannen + verslagen. Geregeld via de AVG."},
+
+{cat:"Cliëntdossier & Regels",wp:"WP2 – Wetgeving / NGS",
+q:"Welke rechten heeft een cliënt m.b.t. zijn dossier (AVG)?",
+opts:["Masseur is eigenaar, cliënt geen rechten","Recht op inzage, correctie en verwijdering","Alleen inzagerecht","Rechten pas na 5 jaar"],c:1,
+src:"WP2, p. AVG / cliëntrechten",
+exp:"AVG-rechten: (1) Inzagerecht (2) Correctierecht (3) Recht op verwijdering ('vergeten worden')."},
+
+{cat:"Cliëntdossier & Regels",wp:"WP2 – Communicatie",
+q:"Cliënt wil klacht indienen. Hoe handel je?",
+opts:["Cliënt ontmoedigen","Informeer over klachtenprocedure beroepsorganisatie (NGS/NBSM), neem serieus","Zelf oplossen zonder officiële procedure","Verwachten dat het verdwijnt"],c:1,
+src:"WP2, p. Klachtenprocedure / NGS",
+exp:"Klacht: serieus nemen, luisteren en cliënt informeren over officiële klachtenprocedure van NGS/NBSM."},
+
+{cat:"Cliëntdossier & Regels",wp:"WP2 – Communicatie",
+q:"Hoe ontvang je als professional feedback?",
+opts:["Defensief reageren","Open en constructief: luisteren, doorvragen, bedanken en overwegen","Direct akkoord, ook bij oneens","Feedback negeren bij ongelijk cliënt"],c:1,
+src:"WP2, p. Communicatie / feedback",
+exp:"Professionele feedbackontvangst: open luisteren, doorvragen voor begrip, bedanken, overwegen of aanpassen nodig is."}
+];
+
+let questions=[], current=0, score=0, streak=0, answered=false, selectedMode=20, catStats={};
+
+function setMode(n){
+  selectedMode=n;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  const id=n>=9999?'modeAll':n===40?'mode40':'mode20';
+  document.getElementById(id).classList.add('active');
+}
+
+function shuffle(a){return[...a].sort(()=>Math.random()-0.5);}
+
+function startExam(){
+  const pool=shuffle(Q);
+  questions=selectedMode>=pool.length?pool:pool.slice(0,selectedMode);
+  current=0;score=0;streak=0;catStats={};
+  questions.forEach(q=>{if(!catStats[q.cat])catStats[q.cat]={r:0,t:0};});
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  showQuestion();
+}
+
+function showQuestion(){
+  answered=false;
+  const q=questions[current];
+  document.getElementById('wpTag').textContent=q.wp;
+  document.getElementById('questionNr').textContent=`Vraag ${current+1} van ${questions.length}`;
+  document.getElementById('questionText').textContent=q.q;
+  const shuffled=shuffle(q.opts.map((o,i)=>({text:o,orig:i})));
+  const c=document.getElementById('optionsContainer');
+  c.innerHTML='';
+  shuffled.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span>${opt.text}</span>`;
+    btn.dataset.orig=opt.orig;
+    btn.onclick=()=>selectAnswer(btn,opt.orig);
+    c.appendChild(btn);
+  });
+  document.getElementById('feedbackBox').style.display='none';
+  document.getElementById('nextBtn').style.display='none';
+  updateHeader();
+}
+
+function updateHeader(){
+  document.getElementById('progressBar').style.width=((current/questions.length)*100)+'%';
+  document.getElementById('statVoortgang').textContent=`Vraag ${current+1} / ${questions.length}`;
+  document.getElementById('statScore').textContent=`✓ ${score} goed`;
+  document.getElementById('statStreak').textContent=`🔥 ${streak}`;
+}
+
+function selectAnswer(btn,chosen){
+  if(answered)return;
+  answered=true;
+  const q=questions[current];
+  const ok=chosen===q.c;
+  document.querySelectorAll('.option-btn').forEach(b=>{
+    b.disabled=true;
+    if(parseInt(b.dataset.orig)===q.c)b.classList.add('correct');
+  });
+  if(ok){btn.classList.add('correct');score++;streak++;catStats[q.cat].r++;}
+  else{btn.classList.add('wrong');streak=0;}
+  catStats[q.cat].t++;
+  const fb=document.getElementById('feedbackBox');
+  fb.style.display='block';
+  fb.className='feedback '+(ok?'correct':'wrong');
+  document.getElementById('feedbackTitle').textContent=ok?'✅ Correct!':'❌ Helaas, niet correct.';
+  document.getElementById('feedbackText').textContent=q.exp;
+  document.getElementById('feedbackSource').textContent='📖 Bron: '+q.src;
+  const nb=document.getElementById('nextBtn');
+  nb.style.display='block';
+  nb.textContent=current+1<questions.length?'Volgende vraag →':'Bekijk resultaat →';
+  updateHeader();
+}
+
+function nextQuestion(){
+  current++;
+  if(current>=questions.length)showResult();
+  else showQuestion();
+}
+
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  document.getElementById('progressBar').style.width='100%';
+  const pct=Math.round((score/questions.length)*100);
+  document.getElementById('resultScore').textContent=pct+'%';
+  let emoji,label;
+  if(pct>=85){emoji='🏆';label='Uitstekend! Je bent klaar voor het echte examen!';}
+  else if(pct>=70){emoji='🎯';label='Goed bezig! Herhaal de zwakke categorieën nog even.';}
+  else if(pct>=55){emoji='📚';label='Redelijk — meer oefening nodig.';}
+  else{emoji='💪';label='Niet opgeven! Bestudeer het boek goed en probeer opnieuw.';}
+  document.getElementById('resultEmoji').textContent=emoji;
+  document.getElementById('resultLabel').textContent=label;
+  document.getElementById('rbGood').textContent=`✓ ${score} goed`;
+  document.getElementById('rbBad').textContent=`✗ ${questions.length-score} fout`;
+  const cats=document.getElementById('resultCats');
+  cats.innerHTML='<h3>Resultaat per categorie:</h3>';
+  Object.entries(catStats).sort((a,b)=>(a[1].r/a[1].t)-(b[1].r/b[1].t)).forEach(([cat,d])=>{
+    if(!d.t)return;
+    const p=Math.round((d.r/d.t)*100);
+    const color=p>=70?'#38a169':p>=50?'#d69e2e':'#e53e3e';
+    const div=document.createElement('div');
+    div.className='cat-row';
+    div.innerHTML=`<span class="cat-name">${cat}</span><span class="cat-score">${d.r}/${d.t}</span><div class="cat-bar"><div class="cat-fill" style="width:${p}%;background:${color}"></div></div>`;
+    cats.appendChild(div);
+  });
+}
+
+function restartExam(){document.getElementById('resultScreen').style.display='none';startExam();}
+function goHome(){document.getElementById('resultScreen').style.display='none';document.getElementById('startScreen').style.display='block';}
+</script>
+
+</body>
+</html>
