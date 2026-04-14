@@ -200,7 +200,7 @@ border-bottom: 1px solid #e2e8f0;
 
 <div class="header">
   <h1>🏅 NGS Sportmasseur – Examensimulatie</h1>
-  <div class="sub">Studieboek Nemus Opleidingen. Check bronnen in het boek als je een vraag niet snapt! </div>
+  <div class="sub">Studieboek Nemus Opleidingen</div>
   <div class="pb-wrap"><div class="pb" id="pb"></div></div>
   <div class="hstats">
     <div class="hstat" id="hVoortgang">–</div>
@@ -300,6 +300,7 @@ const CHAPTERS = [
   { id:"fysio",    name:"Fysiologie & Training", icon:"❤️" },
   { id:"huid",     name:"Huid & Hygiëne",        icon:"🧴" },
   { id:"dossier",  name:"Cliëntdossier & Regels",icon:"📋" },
+  { id:"functie",  name:"Functietests & Articulatio", icon:"🔬" },
 ];
 
 const DB = [
@@ -442,7 +443,7 @@ exp:"Pronatie = hand naar binnen draaien, handrug omhoog. Supinatie = handpalm o
 
 {ch:"beweging", wp:"Hfst. 1 – Bewegingsleer",
 q:"Een cliënt heeft een hoofd dat ver naar voren staat op de nek. Hoe noem je deze stand?",
-o:["Retroflexie van de cervicale wervelkolom","Kyfose van de cervicale wervelkolom","Anteflexie/protrusie van de cervicale wervelkolom","Lateraalflexie,Lateroflexie van de cervicale wervelkolom"], a:2,
+o:["Retroflexie van de cervicale wervelkolom","Kyfose van de cervicale wervelkolom","Anteflexie/protrusie van de cervicale wervelkolom","Lateraalflexie van de cervicale wervelkolom"], a:2,
 src:"Hfst. 1, p. Richtingen",
 exp:"Hoofd ver naar voren = anteflexie of protrusie van de cervicale wervelkolom. Een veelvoorkomende houdingsfout ('tekststijf-nek')."},
 
@@ -521,7 +522,7 @@ exp:"M. pectoralis major: adductie, endorotatie en anteflexie. NIET abductie —
 
 {ch:"spier_arm", wp:"Hfst. 5 – Spieren arm",
 q:"De m. trapezius pars descendens (bovenste deel) voert welke bewegingen uit?",
-o:["Depressie schouderblad + endorotatie schouderblad + neksflexie","Elevatie schouderblad + exorotatie schouderblad + nekextensie","Protractie schouderblad + depressie + lateraalflexie,Lateroflexie nek","Retractie schouderblad + elevatie + neksflexie"], a:1,
+o:["Depressie schouderblad + endorotatie schouderblad + neksflexie","Elevatie schouderblad + exorotatie schouderblad + nekextensie","Protractie schouderblad + depressie + lateraalflexie nek","Retractie schouderblad + elevatie + neksflexie"], a:1,
 src:"Hfst. 5, p. m. trapezius",
 exp:"M. trapezius pars descendens: elevatie schouderblad + exorotatie schouderblad + extensie (strekken) van de nek."},
 
@@ -622,7 +623,7 @@ exp:"Diafragma = de belangrijkste ademhalingsspier. Bij inademing daalt het diaf
 q:"Een sporter heeft rugpijn bij het rechtop staan. Welke spier houdt de wervelkolom in stand en strekt de rug?",
 o:["M. obliquus externus abdominis","M. rectus abdominis","M. erector spinae","M. transversus abdominis"], a:2,
 src:"Hfst. 5, p. m. erector spinae",
-exp:"M. erector spinae (lange rugstrekkers): houdt wervelkolom in stand + retroflexie (strekken rug) bilateraal. Unilateraal: lateraalflexie,Lateroflexie."},
+exp:"M. erector spinae (lange rugstrekkers): houdt wervelkolom in stand + retroflexie (strekken rug) bilateraal. Unilateraal: lateraalflexie."},
 
 {ch:"spier_romp", wp:"Hfst. 5 – Spieren romp",
 q:"Welke spier is de voornaamste buiger van de romp (anteflexie)?",
@@ -1004,7 +1005,7 @@ exp:"Het vrouwelijke bekken is ruimer en breder dan bij de man. Dit is van belan
 
 {ch:"botten", wp:"Hfst. 2 – Geraamte",
 q:"De os calcaneus is een belangrijk been bij sporters. Wat is de os calcaneus?",
-o:["Het sprongbeen","Het hielbeen(hak)","Het scheepvormige been","Het teerlingbeen"], a:1,
+o:["Het sprongbeen","Het hielbeen","Het scheepvormige been","Het teerlingbeen"], a:1,
 src:"Hfst. 4, p. Voet",
 exp:"Os calcaneus = het hielbeen. Het is het grootste been van de voet. De achillespees hecht aan op het tuber calcanei (de achterkant van het hielbeen)."},
 
@@ -1107,10 +1108,10 @@ src:"Hfst. 1, p. Bewegingsrichtingen",
 exp:"Retroflexie = naar achteren buigen/strekken van de romp of een lichaamsdeel. Anteflexie = naar voren buigen."},
 
 {ch:"beweging", wp:"Hfst. 1 – Bewegingsleer",
-q:"Een sporter doet een lateraalflexie,Lateroflexie van de romp. Welk vlak is actief?",
+q:"Een sporter doet een lateraalflexie van de romp. Welk vlak is actief?",
 o:["Sagittaal vlak","Transversaal vlak","Frontaal vlak","Mediaan vlak"], a:2,
 src:"Hfst. 1, p. Vlakken",
-exp:"Lateraalflexie,Lateroflexie (zijwaarts buigen) vindt plaats in het frontale vlak. Flexie/extensie (voor/achter) in het sagittale vlak. Rotatie in het transversale vlak."},
+exp:"Lateraalflexie (zijwaarts buigen) vindt plaats in het frontale vlak. Flexie/extensie (voor/achter) in het sagittale vlak. Rotatie in het transversale vlak."},
 
 {ch:"beweging", wp:"Hfst. 1 – Bewegingsleer",
 q:"Wat is supinatie van de onderarm?",
@@ -1134,7 +1135,7 @@ exp:"Proximaal = dicht bij het anatomisch centrum (romp). Distaal = ver van het 
 q:"Rotatie van de romp vindt plaats om welke as?",
 o:["Transversale as (links-rechts)","Sagittale as (voor-achter)","Longitudinale as (boven-onder)","Frontale as (zijwaarts)"], a:2,
 src:"Hfst. 1, p. Assen",
-exp:"Rotatie (draaien) van de romp vindt plaats om de longitudinale as (boven-onder). Om de transversale as: flexie/extensie. Om de sagittale as: lateraalflexie,Lateroflexie."},
+exp:"Rotatie (draaien) van de romp vindt plaats om de longitudinale as (boven-onder). Om de transversale as: flexie/extensie. Om de sagittale as: lateraalflexie."},
 
 {ch:"beweging", wp:"Hfst. 1 – Bewegingsleer",
 q:"Wat is de anatomische grondhouding?",
@@ -1278,7 +1279,7 @@ exp:"M. extensor hallucis longus: strekken van de grote teen + dorsaalflexie voe
 
 {ch:"spier_been", wp:"Hfst. 5 – Spieren been",
 q:"De m. quadratus lumborum (vierkante lendespier) ontspringt aan de crista iliaca. Wat is de functie?",
-o:["Heupflexie + knieextensie","Naar beneden trekken 12e rib + zijwaarts buigen romp (lateroflexie,unilateraal)","Extensie heup + exorotatie dijbeen","Abductie dijbeen + lateraalflexie wervelkolom"], a:1,
+o:["Heupflexie + knieextensie","Naar beneden trekken 12e rib + zijwaarts buigen romp (unilateraal)","Extensie heup + exorotatie dijbeen","Abductie dijbeen + lateraalflexie wervelkolom"], a:1,
 src:"Hfst. 5, p. m. quadratus lumborum",
 exp:"M. quadratus lumborum: naar beneden trekken van de 12e rib (hulp bij uitademing) + zijwaartse buiging van de romp (unilateraal). Kan bij spanning lage rugpijn veroorzaken."},
 
@@ -1926,7 +1927,7 @@ exp:"De trainer bepaalt of een speler speelt. Hij laat zich echter bindend advis
 q:"Hoe lang moet een masseur een cliëntendossier bewaren op basis van de wetgeving?",
 o:["1 jaar","5 jaar","15 jaar","Onbeperkt"], a:2,
 src:"WP2, p. Dossier bewaarplicht",
-exp:"Op basis van de WGBO (Wet Geneeskundige Behandelingsovereenkomst) geldt een bewaarplicht van 15 jaar voor medische dossiers in de gezondheidszorg. NGS adviseert zelf 2 jaar of zolang nodig is, omdat de sportmasseur hier niet onder valt (boek w. snellenberg) "},
+exp:"Op basis van de WGBO (Wet Geneeskundige Behandelingsovereenkomst) geldt een bewaarplicht van 15 jaar voor medische dossiers in de gezondheidszorg, ook voor masseurs."},
 
 {ch:"dossier", wp:"WP2 – AVG",
 q:"Mag een masseur gegevens uit het cliëntendossier delen met derden?",
@@ -1983,7 +1984,424 @@ o:["NBSM = Nederlandse Bond voor Sportmasseurs, een concurrerende organisatie di
 src:"Hfst. 26, p. NGS/NBSM",
 exp:"NBSM = Nederlandse Brancheorganisatie van Sportverzorgers en Masseurs. Geeft de accreditatie voor de opleiding af. Tegenwoordig zijn veel sportmasseurs lid van de NBSM (vroeger meer NGS)."},
 
-];// END NEW QUESTIONS
+
+// ══ NIEUWE VRAGEN – FUNCTIETESTS (nieuw hoofdstuk) ══════════
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat is het doel van een functietest bij een geblesseerde sporter?",
+o:["De diagnose definitief stellen","Inzicht krijgen in de belastbaarheid en de mate van herstel na een blessure","De juiste medicatie bepalen","Het trainingsschema aanpassen"], a:1,
+src:"Hfst. 39, p. Functietesten",
+exp:"Een functietest toetst in welke mate een blessure is hersteld. De verzorger geeft op basis hiervan advies aan sporter en trainer over hervatten van belasting."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat is de juiste volgorde bij het uitvoeren van een functietest?",
+o:["Eerst aangedane zijde, dan gezonde zijde ter vergelijking","Altijd eerst de gezonde zijde testen, dan de aangedane zijde","Beide zijden tegelijk testen","Volgorde maakt niet uit"], a:1,
+src:"Hfst. 39, p. Functietesten",
+exp:"Altijd EERST de gezonde zijde testen, dan de aangedane zijde. Zo heb je een referentie voor normaal bewegen bij diezelfde persoon."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat test je bij een ACTIEVE functietest van een gewricht?",
+o:["De masseur beweegt het gewricht passief","De sporter voert de beweging zelf uit; informatie over gewricht, kapsel en globaal over de spier","De sporter spant de spier aan onder weerstand van de masseur","De masseur trekt aan het ligament om stabiliteit te testen"], a:1,
+src:"Hfst. 39, p. Functietesten actief",
+exp:"Actieve test: de sporter voert de beweging zelf uit. Geeft globale informatie over gewricht, kapsel en in mindere mate de spier. Meest veilige manier (masseur raakt sporter niet aan)."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat test je bij een PASSIEVE functietest?",
+o:["De sporter voert de beweging zelf uit zonder hulp","De masseur voert de beweging uit zonder actieve medewerking van de sporter; test ligamenten en gewrichtsstructuren","De sporter spant de spier isometrisch aan","De sporter loopt een rondje om belastbaarheid te testen"], a:1,
+src:"Hfst. 39, p. Functietesten passief",
+exp:"Passieve test: de masseur voert de beweging uit, sporter ontspant. Geeft informatie over beweeglijkheid van het gewricht en de structuren die gerekt/samengedrukt worden — met name de ligamenten."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat betekent het als een test ONDER WEERSTAND pijn geeft?",
+o:["Er is sprake van een gewrichts- of kapselaandoening","Er is sprake van een spier- of peesaandoening","Er is een ligamentletsel aanwezig","Er is geen blessure aanwezig"], a:1,
+src:"Hfst. 39, p. Test onder weerstand",
+exp:"Test onder weerstand (isometrisch): pijn = spier- of peesaandoening. Pijn + krachtverlies = ernstige blessure. Krachtverlies zonder pijn = totale ruptuur of neurologisch letsel."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Hoe test je het mediale collaterale ligament (binnenband) van de knie?",
+o:["Knie volledig gestrekt; druk van mediaal naar lateraal op het onderbeen","Knie 5-10° gebogen; onderbeen voorzichtig naar lateraal bewegen terwijl bovenbeen gefixeerd is","Knie 90° gebogen; tibia naar voren trekken","Knie 90° gebogen; voet endoroteren"], a:1,
+src:"Hfst. 39, p. Bandentesten knie",
+exp:"Mediale collaterale band: knie 5-10° gebogen (NIET volledig gestrekt), bovenbeen fixeren, onderbeen naar LATERAAL bewegen. Pijn mediaal = letsel mediale band. Pijn lateraal = meniscus."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Waarom moet de knie 5-10° gebogen zijn bij het testen van de collaterale banden?",
+o:["Zodat de test makkelijker uitvoerbaar is","Bij volledig gestrekte knie zijn alle structuren aangespannen en staat de knie 'op slot'; gebogen = isoleren van de band","Zodat de sporter minder pijn heeft","De hoek maakt geen verschil voor de testuitslag"], a:1,
+src:"Hfst. 39, p. Bandentesten knie",
+exp:"Bij volledig gestrekte knie staan alle structuren (banden, kapsel) aangespannen — de knie staat 'op slot'. Door 5-10° te buigen kun je de collaterale banden geïsoleerd testen."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Hoe test je de VOORSTE kruisband van de knie?",
+o:["Knie gestrekt; onderbeen naar lateraal bewegen","Knie 90° gebogen; tibia naar VOREN trekken (anterieure lade-test)","Knie 90° gebogen; voet endoroteren","Knie volledig gebogen; hiel naar bil brengen"], a:1,
+src:"Hfst. 39, p. Kruisbanden knie",
+exp:"Voorste kruisband: knie 90° gebogen, vingers achter het onderbeen, tibia naar VOREN trekken. Beweeglijkheid t.o.v. femur duidt op letsel voorste kruisband (anterieure ladetest)."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Een voetballer heeft een liesblessure. Welke spiergroep is waarschijnlijk aangedaan?",
+o:["Quadriceps (bovenzijde dijbeen)","Adductoren (binnenzijde dijbeen)","Hamstrings (achterzijde dijbeen)","Kuitspieren (onderbeen)"], a:1,
+src:"Hfst. 37, p. Liesblessure",
+exp:"Een liesblessure betreft meestal de adductoren (aanvoerders van het dijbeen). De aanhechting van de adductoren aan het schaambeen (os pubis) is een tendinogeen-periostale blessure."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Welke test voer je uit om te beoordelen of de kuitspieren voldoende kracht hebben na herstel?",
+o:["Passief dorsaalflexie testen terwijl sporter ontspant","Belaste plantairflexie: sporter gaat hoog op de tenen staan","Actief inversie en eversie testen","Onder weerstand dorsiflexie testen"], a:1,
+src:"Hfst. 39, p. Functietest enkel belast",
+exp:"Belaste plantairflexie (hoog op de tenen staan) is de krachtstest voor de kuitspieren (m. triceps surae). Bij herstel moeten beide zijden vergeleken worden."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat zijn de vier criteria voor volledig herstel van een gewrichtsblessure?",
+o:["Geen pijn, normale kleur, geen zwelling, normale temperatuur","Volledige actieve beweging, volledige passieve beweging, geen contractuur, normaal bewegingspatroon","Sporter kan lopen, staan, rennen en springen","Negatieve bandentests, geen hydrops, geen pijn in rust"], a:1,
+src:"Hfst. 39, p. Criteria herstel",
+exp:"Criteria volledig herstel: (1) volledige actieve bewegingsmogelijkheid, (2) volledige passieve bewegingsmogelijkheid, (3) geen contractuur (spierverkorting), (4) normaal bewegingspatroon."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat test de actieve heupflexie in rugligging (knie naar borst brengen)?",
+o:["De kracht van de hamstrings","De beweeglijkheid van het heupgewricht en de heupflexoren (o.a. m. iliopsoas)","De kracht van de gluteus maximus","De stabiliteit van de SI-gewrichten"], a:1,
+src:"Hfst. 39, p. Functietest heup actief",
+exp:"Actieve heupflexie (knie naar borst): test de beweeglijkheid van het heupgewricht en de kracht/functie van de heupflexoren zoals de m. iliopsoas en m. rectus femoris."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Welke informatie geeft een test ONDER WEERSTAND als er krachtverlies ZONDER pijn optreedt?",
+o:["Lichte spieroverbelasting","Totale ruptuur van spier/pees of letsel van neurologische aard","Gewrichtsontsteking","Relatieve contra-indicatie voor massage"], a:1,
+src:"Hfst. 39, p. Test onder weerstand",
+exp:"Krachtverlies zonder pijn bij weerstandstest = totale ruptuur van de spier/pees (sporter kan niet aanspannen) of letsel van neurologische aard (zenuw aangedaan)."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Welke gewrichten worden getest bij functieonderzoek? (meerdere antwoorden)",
+o:["Kniegewricht","Enkelgewricht","Heupgewricht","Ruggenwervelgewrichten"],
+type:"multi", a:[0,1,2],
+src:"Hfst. 39, p. Functietesten overzicht",
+exp:"Functietesten in Hfst. 39: teengewrichtjes, enkel, knie, heup, schouder, elleboog, pols, vingers, duim. Ruggenwervelgewrichten staan niet in dit overzicht."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Hoe wordt de hamstringslengte getest?",
+o:["Sporter buigt de knie zo ver mogelijk terwijl masseur weerstand geeft","Sporter ligt op de rug; been gestrekt opheffen (passive straight leg raise); hoek meten","Sporter staat op één been; been achterwaarts strekken","Sporter trekt hiel naar bil vanuit buikligging"], a:1,
+src:"Hfst. 39, p. Hamstrings lengte/kracht",
+exp:"Hamstringslengte: ruglig, been gestrekt opheffen (passive straight leg raise). Hoe hoger het been kan zonder klachten, hoe soepeler de hamstrings. Normaal ca. 80-90°."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat let je op bij ALLE functietests? (meerdere antwoorden)",
+o:["Pijn","Bewegingsuitslag (ROM)","Huidkleur van het gewricht","Stabiliteit en kracht"],
+type:"multi", a:[0,1,3],
+src:"Hfst. 39, p. Functietesten algemeen",
+exp:"Bij functietests let je op: pijn, bewegingsuitslag, souplesse, kracht, rek/lengte, eindgevoel en stabiliteit. Huidkleur is geen onderdeel van een functietest."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Wat is het verschil tussen de articulatio genus en de articulatio coxae?",
+o:["Art. genus = heupgewricht; art. coxae = kniegewricht","Art. genus = kniegewricht; art. coxae = heupgewricht","Art. genus = enkelgewricht; art. coxae = kniegewricht","Art. genus = schouder; art. coxae = heup"], a:1,
+src:"Hfst. 4, p. Gewrichten been",
+exp:"Articulatio genus = kniegewricht. Articulatio coxae = heupgewricht. Ken de Latijnse namen: art. talo-cruralis = enkel, art. humeri = schouder, art. cubiti = elleboog."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Welke Latijnse naam heeft het schoudergewricht?",
+o:["Articulatio cubiti","Articulatio genus","Articulatio humeri","Articulatio coxae"], a:2,
+src:"Hfst. 3, p. Schoudergewricht",
+exp:"Art. humeri = schoudergewricht. Art. cubiti = elleboog, art. genus = knie, art. coxae = heup, art. talo-cruralis = bovenste spronggewricht."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Welke Latijnse naam heeft het enkelgewricht?",
+o:["Articulatio subtalaris","Articulatio talo-cruralis","Articulatio genus","Articulatio pedis"], a:1,
+src:"Hfst. 4, p. Bovenste spronggewricht",
+exp:"Art. talo-cruralis = bovenste spronggewricht (enkelbankgewricht). Art. subtalaris = onderste spronggewricht. Art. genus = knie."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Hoe test je het laterale collaterale ligament van de knie?",
+o:["Knie 5-10° gebogen; onderbeen naar MEDIAAL bewegen terwijl bovenbeen gefixeerd is","Knie volledig gestrekt; druk van lateraal op het onderbeen","Knie 90° gebogen; tibia naar achteren duwen","Knie 90° gebogen; exorotatie testen"], a:0,
+src:"Hfst. 39, p. Bandentesten knie lateraal",
+exp:"Laterale collaterale band: knie 5-10° gebogen, bovenbeen mediaal fixeren, onderbeen naar MEDIAAL bewegen. Pijn lateraal = letsel laterale band. Pijn mediaal = meniscus."},
+
+{ch:"functie", wp:"Hfst. 39 – Functietests",
+q:"Een sporter heeft na een knieblessure pijn bij actief strekken van de knie. Welke structuur is waarschijnlijk aangedaan?",
+o:["Mediale collaterale band","Voorste kruisband","Quadriceps of kniepees (extensorenapparaat)","Achterste kruisband"], a:2,
+src:"Hfst. 39, p. Functietest knie",
+exp:"Pijn bij actief strekken van de knie duidt op een probleem in het extensorenapparaat: de quadriceps of de kniepees. De kruisbanden geven geen pijn bij actieve extensie."},
+
+// ══ NIEUWE VRAGEN – TAPEN uitbreiding (3 extra → totaal 20) ══
+{ch:"tapen", wp:"Hfst. 40 – Tapen behaarde huid",
+q:"Een cliënt met een behaarde enkel is bang dat tape pijnlijk losgaat. Wat adviseer je?",
+o:["De tape op de behaarde huid plakken met extra lijm","De behaarde huid scheren + kleefspray (primer) aanbrengen vóór het tapen","Elastisch verband gebruiken in plaats van tape","Tape is bij behaarde huid altijd gecontra-indiceerd"], a:1,
+src:"Hfst. 40, p. Tapen behaarde huid / Hfst. 44",
+exp:"Bij behaarde huid: de te tapen huid SCHEREN + kleefspray (primer) aanbrengen. Dit verbetert de hechting van de tape en maakt het losgaan minder pijnlijk."},
+
+{ch:"tapen", wp:"Hfst. 40 – Tapen",
+q:"Wat staat POLICE voor (moderne opvolger van RICE bij acute blessures)?",
+o:["Pain, Optimal Loading, Ice, Compression, Elevation","Protect, Optimal Loading, Ice, Compression, Elevation","Prevention, Optimal Loading, Ice, Cooling, Elevation","Protect, Overload, Ice, Compression, Elevation"], a:1,
+src:"Hfst. 40 / Moderne sportgeneeskunde",
+exp:"POLICE: Protect (bescherm het gewricht), Optimal Loading (optimale belasting ipv volledige rust), Ice (koelen), Compression (drukverband), Elevation (hoog leggen). Opvolger van RICE waarbij rust vervangen is door optimale belasting."},
+
+{ch:"tapen", wp:"Hfst. 40 – Tapen",
+q:"Wat is het verschil tussen RICE en POLICE?",
+o:["RICE is moderner dan POLICE","Bij POLICE is 'Rest' (volledige rust) vervangen door 'Optimal Loading' (optimale belasting)","POLICE staat voor hetzelfde als RICE maar in andere volgorde","RICE wordt gebruikt bij fracturen, POLICE bij distorsies"], a:1,
+src:"Hfst. 40 / Moderne sportgeneeskunde",
+exp:"RICE: Rest, Ice, Compression, Elevation. POLICE vervangt 'Rest' door 'Protect + Optimal Loading'. Volledig rust is achterhaald; optimale belasting bevordert beter herstel dan immobilisatie."},
+
+// ══ NIEUWE VRAGEN – GEWRICHTEN uitbreiding (articulatio namen) ══
+{ch:"gewricht", wp:"Hfst. 3 / 4 – Articulatio namen",
+q:"Hoe heet het ellebooggewricht in het Latijn?",
+o:["Articulatio humeri","Articulatio cubiti","Articulatio radiocarpea","Articulatio genus"], a:1,
+src:"Hfst. 3, p. Ellebooggewricht",
+exp:"Art. cubiti = ellebooggewricht. Art. humeri = schouder, art. radiocarpea = pols, art. genus = knie."},
+
+{ch:"gewricht", wp:"Hfst. 3 – Articulatio namen",
+q:"Hoe heet het polsgewricht in het Latijn?",
+o:["Articulatio cubiti","Articulatio carpo-metacarpalis","Articulatio radiocarpea","Articulatio interphalangea"], a:2,
+src:"Hfst. 3, p. Polsgewricht",
+exp:"Art. radiocarpea = polsgewricht (tussen radius en handwortelbeentjes). Art. cubiti = elleboog, art. carpo-metacarpalis = handwortel-middenhand."},
+
+{ch:"gewricht", wp:"Hfst. 4 – Articulatio namen",
+q:"Hoe heet het heupgewricht in het Latijn?",
+o:["Articulatio genus","Articulatio femoris","Articulatio coxae","Articulatio sacroiliaca"], a:2,
+src:"Hfst. 4, p. Heupgewricht",
+exp:"Art. coxae = heupgewricht (kogelgewricht, 3-assig). Art. genus = knie, art. sacroiliaca = SI-gewricht."},
+
+{ch:"gewricht", wp:"Hfst. 4 – Articulatio namen",
+q:"Een cliënt heeft pijn in de art. sacroiliaca (SI-gewricht). Tussen welke botten bevindt dit gewricht zich?",
+o:["Tussen femur en acetabulum","Tussen heiligbeen (sacrum) en darmbeen (ilium)","Tussen staartbeen en heiligbeen","Tussen L5 en sacrum"], a:1,
+src:"Hfst. 4, p. Bekkengordel",
+exp:"Art. sacroiliaca (SI-gewricht) = verbinding tussen het heiligbeen (os sacrum) en het darmbeen (os ilium). De gewrichtsvlakken zijn met kraakbeen bedekt en weinig beweegbaar."},
+
+// ══ NIEUWE VRAGEN – BOTTEN (os-namen op kaartje) ══════════════
+{ch:"botten", wp:"Hfst. 2 – Os-namen",
+q:"Waar bevindt het os pubis (schaambeen) zich in het bekken?",
+o:["Aan de achterzijde van het bekken, verbinding met de wervelkolom","Aan de voorzijde van het bekken; beide schaambeenderen zijn verbonden via de symphysis","Aan de buitenzijde van het bekken, aanhechtingspunt voor bilspieren","Aan de bovenzijde van het bekken, crista iliaca"], a:1,
+src:"Hfst. 2, p. Bekkengordel",
+exp:"Os pubis (schaambeen) ligt aan de VOORZIJDE van het bekken. Beide schaambeenderen zijn verbonden via de symphysis pubis (een kraakbenige verbinding). Het os ilium (darmbeen) is het grote platte zijstuk."},
+
+{ch:"botten", wp:"Hfst. 2 – Os-namen",
+q:"Waar bevindt het os sacrum (heiligbeen) zich?",
+o:["Aan de voorzijde van het bekken (symphysis)","Aan de achterzijde van het bekken, verbinding tussen bekken en wervelkolom","Boven op de wervelkolom","In de voet, achter de talus"], a:1,
+src:"Hfst. 2, p. Bekkengordel",
+exp:"Os sacrum (heiligbeen) is het massieve driehoekige bot aan de ACHTERZIJDE van het bekken. Het verbindt het bekken met de wervelkolom via het SI-gewricht."},
+
+{ch:"botten", wp:"Hfst. 2 – Os-namen",
+q:"Welk bot is het os ischii?",
+o:["Darmbeen (bovenkant bekken)","Schaambeen (voorzijde bekken)","Zitbeen (onderkant bekken, draagt je gewicht bij zitten)","Heiligbeen (achterzijde bekken)"], a:2,
+src:"Hfst. 2, p. Bekkengordel",
+exp:"Os ischii = zitbeen (onderkant van het bekken). Het tuber ischiadicum is de benige knobbel waarop je zit. Hier ontspringen ook de hamstrings."},
+
+{ch:"botten", wp:"Hfst. 2 – Os-namen",
+q:"Welk bot vormt de crista iliaca?",
+o:["Os sacrum","Os ischii","Os ilium (darmbeen)","Os pubis"], a:2,
+src:"Hfst. 2, p. Bekkengordel",
+exp:"De crista iliaca (darmbeenkam) is de bovenste rand van het os ilium (darmbeen). Hier hechten diverse spieren aan, o.a. de m. latissimus dorsi, m. obliquus externus en m. quadratus lumborum."},
+
+// ══ NIEUWE VRAGEN – HUID uitbreiding (structuren lokaliseren) ═
+{ch:"huid", wp:"Hfst. 18 – Huidstructuren lokalisatie",
+q:"In welke laag van de huid bevinden zich de zweetklieren (glandulae sudoriferae)?",
+o:["In de hoornlaag (stratum corneum, epidermis)","In de subcutis (onderhuids bindweefsel) en doorlopend naar de dermis","Uitsluitend in de epidermis","In de basale laag van de epidermis"], a:1,
+src:"Hfst. 18, p. Zweetklieren",
+exp:"Zweetklieren beginnen in de subcutis als een kluwen (glomerulus) en lopen als buisjes door de dermis naar de oppervlakte (poriën in de epidermis)."},
+
+{ch:"huid", wp:"Hfst. 18 – Huidstructuren lokalisatie",
+q:"Waar bevinden de talgklieren (glandulae sebaceae) zich precies?",
+o:["Zelfstandig in de epidermis","In de dermis, uitmondend in het haarzakje","In de subcutis naast de vetlichaampjes","In de basale laag van de epidermis"], a:1,
+src:"Hfst. 18, p. Talgklieren",
+exp:"Talgklieren bevinden zich in de dermis (lederhuid) en monden uit in het haarzakje. Ze produceren talg dat de huid en haren smeert en waterafstotend maakt."},
+
+{ch:"huid", wp:"Hfst. 18 – Huidstructuren lokalisatie",
+q:"Waar bevinden de receptoren (voor pijn, tast, temperatuur) zich in de huid?",
+o:["Alleen in de epidermis (opperhuid)","In de dermis (lederhuid), met vrije zenuwuiteinden ook in de epidermis","Alleen in de subcutis","In de talgklieren"], a:1,
+src:"Hfst. 18, p. Receptoren",
+exp:"Receptoren bevinden zich voornamelijk in de dermis. Vrije zenuwuiteinden (pijnreceptoren) reiken ook in de epidermis. Diepere receptoren (Pacini) zitten in de subcutis."},
+
+{ch:"huid", wp:"Hfst. 18 – Huidstructuren lokalisatie",
+q:"Op een schematische tekening van de huid zie je van buiten naar binnen. Wat is de juiste volgorde?",
+o:["Subcutis → dermis → epidermis","Epidermis → dermis/corium → subcutis","Dermis → epidermis → subcutis","Epidermis → subcutis → dermis"], a:1,
+src:"Hfst. 18, p. Bouw huid",
+exp:"Van buiten naar binnen: (1) epidermis (opperhuid), (2) dermis/corium (lederhuid), (3) subcutis (onderhuids bindweefsel + vet). De epidermis is de buitenste beschermlaag."},
+
+
+// ══ EXTRA VRAGEN op basis van examenfeedback ══════════════════
+// Zwakste: EHBO (46%), Beroepsonderzoek (50%),
+// Tapen (60%), Voorlichting (62%), Sportmassage (77%)
+
+// ── EHBO EXTRA ───────────────────────────────────────────────
+{ch:"ehbo", wp:"Hfst. 45 – CPR/AED",
+q:"Hoe diep druk je het borstbeen in bij borstcompressies bij een volwassene?",
+o:["1-2 cm","4-5 cm","8-10 cm","6-8 cm"], a:1,
+src:"Hfst. 45, p. CPR richtlijnen",
+exp:"Bij borstcompressies: thorax 4-5 cm indrukken, 100 compressies per minuut. Handen op het midden van het borstbeen. De thorax moet na elke compressie volledig omhoog komen."},
+
+{ch:"ehbo", wp:"Hfst. 45 – CPR/AED",
+q:"Wanneer stop je met reanimeren? (meerdere antwoorden)",
+o:["Wanneer deskundige hulp het overneemt","Wanneer een arts zegt te stoppen","Na precies 10 minuten reanimeren","Wanneer je tekenen van leven waarneemt"],
+type:"multi", a:[0,1,3],
+src:"Hfst. 45, p. CPR richtlijnen",
+exp:"Stoppen met reanimeren: (1) deskundige hulp neemt het over, (2) arts zegt te stoppen, (3) je kunt door vermoeidheid niet doorgaan, (4) je ziet tekenen van leven. Niet na een vaste tijdsduur."},
+
+{ch:"ehbo", wp:"Hfst. 45 – AED",
+q:"Hoe werkt de AED (Automated External Defibrillator)?",
+o:["Gebruiker beoordeelt zelf het hartritme","AED werkt via voice-prompt: aansluiten elektroden, AED analyseert ritme en geeft instructies","AED geeft altijd een shock ongeacht het ritme","AED vervangt borstcompressies volledig"], a:1,
+src:"Hfst. 45, p. Gebruik AED",
+exp:"AED werkt vrijwel vanzelf via voice-prompt. Elektroden aansluiten, AED analyseert het hartritme (SAS-systeem) en geeft instructies. Zorg dat niemand het slachtoffer aanraakt tijdens analyse en shock."},
+
+{ch:"ehbo", wp:"Hfst. 45 – AED",
+q:"Waar plak je de elektroden van de AED?",
+o:["Beide elektroden links en rechts naast het borstbeen","Eén rechts onder het sleutelbeen, de ander links onder de borst op de ribben","Beide op de rug van het slachtoffer","Eén op het borstbeen, één op de linkerarm"], a:1,
+src:"Hfst. 45, p. Gebruik AED",
+exp:"AED elektroden: één rechts ONDER het sleutelbeen (op de borst), de andere links ONDER de borst op de ribben. De plaatjes op de elektroden tonen de juiste positie."},
+
+{ch:"ehbo", wp:"Hfst. 45 – CPR kinderen",
+q:"Bij kinderen tot aan de puberteit geldt een afwijkende volgorde bij reanimatie. Welke?",
+o:["Direct 30 borstcompressies, dan 2 beademingen","Eerst 5 beademingen, daarna verder 30:2","Alleen borstcompressies, geen beademingen","Eerst 15 compressies, dan 2 beademingen"], a:1,
+src:"Hfst. 45, p. CPR kinderen",
+exp:"Kinderen (tot aan puberteit): EERST 5 beademingen, daarna verder 30:2. Bij verdrinking: eerst 1 minuut beademen, dan 30:2. Bij volwassenen: direct 30 compressies starten."},
+
+{ch:"ehbo", wp:"Hfst. 29 – Shock",
+q:"Wat zijn de verschijnselen van shock?",
+o:["Hoge bloeddruk, rode huid, trage hartslag","Snelle oppervlakkige pols, bleke klamme huid, sufheid, lage bloeddruk, dorst","Hoge koorts, spierkrampen, hoge bloeddruk","Trage pols, blauwe lippen, hoge bloeddruk"], a:1,
+src:"Hfst. 29, p. Shock",
+exp:"Shock: snelle oppervlakkige pols (140-180/min), snelle ademhaling (30x/min), bleke klamme huid, sufheid, dorst, lage bloeddruk, overmatige transpiratie, verminderde urineproductie."},
+
+{ch:"ehbo", wp:"Hfst. 29 – Shock",
+q:"Eerste hulp bij shock — wat doe je? (meerdere antwoorden)",
+o:["Bloeding stelpen en wond behandelen","Benen hoger leggen (autotransfusie, NIET bij wond boven middenrif)","Warme dranken geven om temperatuur op peil te houden","Afkoeling voorkomen en patiënt geruststellen"],
+type:"multi", a:[0,1,3],
+src:"Hfst. 29, p. Shock eerste hulp",
+exp:"Shock: stelp bloeding, kleding losmaken, laten liggen, benen hoog (tenzij wond boven middenrif), afkoeling voorkomen, geruststellen, NIET laten drinken, arts waarschuwen."},
+
+{ch:"ehbo", wp:"Hfst. 29 – Hyperventilatie",
+q:"Een sporter ademt na een wedstrijd snel en diep, voelt prikkeling in handen en is benauwd. Dit is waarschijnlijk:",
+o:["Hartaanval","Hyperventilatie door nervositeit of angst","Shock door bloedverlies","Epileptische aanval"], a:1,
+src:"Hfst. 29, p. Hyperventilatie",
+exp:"Hyperventilatie: door angst/nervositeit versnelt de ademhaling, koolzuurspanning daalt. Verschijnselen: benauwdheid, prikkeling handen/voeten/mond, duizeligheid, beklemmend gevoel op borst."},
+
+{ch:"ehbo", wp:"Hfst. 29 – Hyperventilatie",
+q:"Eerste hulp bij hyperventilatie?",
+o:["Sporter laten rennen om CO2 op te bouwen","Geruststellen en laten ademen in gesloten zak of gekomde handen","Zuurstof geven via masker","Stabiele zijligging + 112 bellen"], a:1,
+src:"Hfst. 29, p. Hyperventilatie",
+exp:"Hyperventilatie eerste hulp: (1) geruststellen en kalmeren, (2) laten ademen in gesloten zak of gekomde handen. Hierdoor stijgt de koolzuurspanning weer en normaliseert de ademhaling."},
+
+{ch:"ehbo", wp:"Hfst. 29 – Warmtestuwing",
+q:"Een sporter is na een wedstrijd in de hitte bleek, klam, misselijk en heeft een snelle pols. Dit is:",
+o:["Hitteberoerte: kan niet meer zweten, hoog koorts","Warmtestuwing: kan nog wel zweten, geen extreme koorts","Onderkoeling: rillen, lage lichaamstemperatuur","Epileptische aanval"], a:1,
+src:"Hfst. 29, p. Warmtestuwing",
+exp:"Warmtestuwing: lichaam kan overtollige warmte niet kwijt, maar kan nog wel zweten. Bleek-klam, misselijk, dorst, snelle pols. Behandeling: neerleggen in schaduw, afkoelen, isotone drank."},
+
+{ch:"ehbo", wp:"Hfst. 32 – Bloedingen",
+q:"Hoe herken je een slagaderlijke bloeding versus een aderlijke bloeding?",
+o:["Arterieel: donkerrood, gelijkmatig; veneus: helderrood, stootsgewijs","Arterieel: helderrood, stootsgewijs spuitend op hartritme; veneus: donkerrood, gelijkmatig sijpelend","Arterieel altijd inwendig; veneus altijd uitwendig","Er is geen zichtbaar verschil"], a:1,
+src:"Hfst. 32, p. Slagaderlijke bloeding",
+exp:"Arterieel: helderrood zuurstofrijk bloed, stootsgewijs spuitend op ritme van de hartslag — levensgevaarlijk! Veneus: donkerrood koolzuurrijk bloed, gelijkmatig sijpelend. Arteriële bloeding vereist onmiddellijke actie."},
+
+{ch:"ehbo", wp:"Hfst. 32 – Bloedingen",
+q:"Eerste hulp bij slagaderlijke bloeding:",
+o:["Wachten of de bloeding vanzelf stopt","Direct druk minimaal 10 min + wonddrukverband; stekende voorwerpen NIET verwijderen; 112 bellen","Tourniquet aanleggen als eerste maatregel","Wond openhouden voor zelfreiniging"], a:1,
+src:"Hfst. 32, p. Slagaderlijke bloeding",
+exp:"Arteriële bloeding: (1) direct druk op wond minimaal 10 min, (2) lichaamsdeel omhoog, (3) steriel wonddrukverband, (4) 112 bellen bij ernstig bloedverlies. Stekende voorwerpen NOOIT verwijderen."},
+
+// ── BEROEPSSPECIFIEK ONDERZOEK EXTRA ─────────────────────────
+{ch:"functie", wp:"Hfst. 43 – Onderzoek",
+q:"Welke drie stappen vormen het beroepsspecifieke onderzoek vóór een massage?",
+o:["Bloeddruk, gewicht, lengte meten","Anamnese (vraaggesprek), inspectie (observatie), palpatie (aftasten)","Röntgenfoto, bloedtest, urineanalyse","Kracht, lenigheid, uithoudingsvermogen testen"], a:1,
+src:"Hfst. 43, p. Onderzoek",
+exp:"Het beroepsspecifieke onderzoek: (1) anamnese — informatie verzamelen, (2) inspectie — visueel observeren van houding en huid, (3) palpatie — aftasten van huid en spieren."},
+
+{ch:"functie", wp:"Hfst. 43 – Inspectie",
+q:"Wat observeer je bij de inspectie vóór een massage?",
+o:["Alleen de huidkleur","Houding, lichaamsstand, huidkleur, zwellingen, littekenweefsel, asymmetrie","Bloeddruk en hartfrequentie","Kracht van spieren onder weerstand"], a:1,
+src:"Hfst. 43, p. Inspectie",
+exp:"Inspectie: lichaamshouding, stand van het lichaam, huidkleur en -kwaliteit, zichtbare zwellingen, littekenweefsel, asymmetrie tussen links en rechts."},
+
+{ch:"functie", wp:"Hfst. 43 – Palpatie",
+q:"Waarnaar zoek je bij palpatie van de spieren?",
+o:["Alleen naar myogelosen","Hyper/hypotonus, myogelosen, strengvorming, verklevingen, pijnlijke plaatsen, consistentieveranderingen","Alleen naar botstructuur","Alleen naar bloedvaten"], a:1,
+src:"Hfst. 43, p. Palpatie",
+exp:"Palpatie: hyper/hypotonus, hypo/hypertrofie, myogelosen, strengvorming, verklevingen, consistentieveranderingen, pijnlijke plaatsen (drukpijn) en littekenvorming van oude rupturen."},
+
+{ch:"functie", wp:"Hfst. 39 – Weerstandstest",
+q:"Pijn EN krachtverlies bij een weerstandstest van de knie betekent:",
+o:["Lichte overbelasting","Ernstige blessure: sporter durft niet volledig aan te spannen","Ligamentletsel","Totale ruptuur zonder pijn"], a:1,
+src:"Hfst. 39, p. Weerstandstest",
+exp:"Pijn + krachtverlies bij weerstandstest = ernstige blessure (sporter durft niet volledig aan te spannen). Alleen pijn = spier/peesaandoening. Alleen krachtverlies = totale ruptuur of neurologisch letsel."},
+
+{ch:"functie", wp:"Hfst. 43 – Anamnese",
+q:"Waarom is de sociale anamnese van belang voor de masseur?",
+o:["Om te weten of de cliënt kan betalen","Context krijgen over werk, leefwijze, vervoer, maaltijden — relevant voor blessurebelasting en behandeling","Om juridisch gedekt te zijn","Alleen voor naam en geboortedatum"], a:1,
+src:"Hfst. 43, p. Sociale anamnese",
+exp:"Sociale anamnese geeft context: werk (zittend/staand), vervoer (fiets/auto), gezinssituatie, laatste training en maaltijd. Allemaal relevant voor belasting op het bewegingsapparaat en de behandeling."},
+
+// ── TAPEN EXTRA ───────────────────────────────────────────────
+{ch:"tapen", wp:"Hfst. 40 – Tapen materiaal",
+q:"Wanneer pas je elastisch tape toe versus rigide tape?",
+o:["Elastisch bij immobilisatie; rigide bij compressie","Rigide voor immobilisatie/stabilisatie; elastisch voor compressie en functioneel tapen (laat geselecteerde bewegingen toe)","Ze zijn onderling uitwisselbaar","Elastisch bij acuut; rigide bij preventief"], a:1,
+src:"Hfst. 40, p. Tapematerialen",
+exp:"Rigide tape: volledige immobilisatie/stabilisatie (bijv. enkeldistorsie). Elastisch tape: compressie of functioneel tapen waarbij geselecteerde bewegingen nog mogelijk blijven."},
+
+{ch:"tapen", wp:"Hfst. 40 – POLICE",
+q:"Wat betekent de O in POLICE (Optimal Loading)?",
+o:["Overal op het lichaam tapen","Optimale belasting toepassen in plaats van volledige rust om herstel te bevorderen","Operatieve mogelijkheden overwegen","Osteogenese stimuleren"], a:1,
+src:"Hfst. 40 / Moderne richtlijnen",
+exp:"Optimal Loading = optimale belasting in plaats van volledige rust (Rest uit RICE). Gecontroleerde beweging bevordert herstel. De belasting wordt aangepast aan de ernst van de blessure."},
+
+// ── VOORLICHTING & ADVIES EXTRA ───────────────────────────────
+{ch:"blessure", wp:"Hfst. 28 – Warming-up",
+q:"Wat zijn de voordelen van een goede warming-up?",
+o:["Snellere hartslag en hogere bloeddruk als voorbereiding","Lichaam op bedrijfstemperatuur (ca. 1°C hoger), betere bloedverdeling naar spieren, verbeterde ademhaling","Volledig voorkomen van alle blessures","Lagere hartfrequentie en minder zuurstofverbruik"], a:1,
+src:"Hfst. 28, p. Warming-up",
+exp:"Warming-up: (a) lichaam 1°C hoger → betere spiermetabolisme, (b) meer bloed naar betrokken spieren, (c) verbeterde ademhaling → snellere zuurstofafgifte. Duurt ca. 15-20 minuten."},
+
+{ch:"blessure", wp:"Hfst. 28 – Warming-up",
+q:"Gevolgen van onvoldoende warming-up?",
+o:["Sneller warmgelopen spieren","Hart/longen/spieren niet op temperatuur + niet gewend aan materiaal + taping niet uitgetest","Verminderde kracht maar geen blessurerisico","Lagere concentratie maar geen lichamelijke risico's"], a:1,
+src:"Hfst. 28, p. Warming-up nadelen",
+exp:"Onvoldoende warming-up: hart/longen/spieren niet op temperatuur, niet gewend aan accommodatie/materiaal/kleding, taping en bandages niet uitgetest. Verhoogt blessurerisico aanzienlijk."},
+
+{ch:"blessure", wp:"Hfst. 27 – Voorlichting",
+q:"Wanneer verwijst een sportmasseur een sporter naar de arts?",
+o:["Nooit: de masseur lost alles zelf op","Bij twijfel over ernst, vermoedelijke fractuur, neurologische uitval, aanhoudende klachten, hoofd-/nek-/rugletsel","Alleen bij bewusteloosheid","Alleen bij bloedingen die niet stoppen"], a:1,
+src:"Hfst. 27, p. Sportzorgketen",
+exp:"Verwijzen naar arts: bij twijfel over ernst/diagnose, (vermoedelijke) fractuur, neurologische uitval, aanhoudende klachten na behandeling, hoofd/nek/rugletsel, shock — alles buiten het domein van de masseur."},
+
+{ch:"blessure", wp:"Hfst. 36 – Advies",
+q:"Advies na een 1e graads enkeldistorsie?",
+o:["Direct sporten hervatten na warming-up","Koelen + drukkend verband + ontlasten; na 1 dag steungevende bandage; geleidelijk opbouwen","Rust minimaal 4 weken","Alleen koelen, verder niets"], a:1,
+src:"Hfst. 36, p. Enkeldistorsie 1e graads",
+exp:"1e graads distorsie: koelen + drukkend verband + ontlasten. Na 1 dag: steungevende bandage. Geleidelijke belastingsopbouw. Volgende dag al voorzichtig bewegen om circulatie te ondersteunen."},
+
+{ch:"blessure", wp:"Hfst. 36 – Advies na kramp",
+q:"Nazorg na spierkramp: wat adviseer je de sporter? (meerdere antwoorden)",
+o:["Rustig weer bewegen","Goede warming-up de volgende keer","Direct weer intensief trainen","Voldoende drinken en evt. zout (bouillon/dropje)"],
+type:"multi", a:[0,1,3],
+src:"Hfst. 36, p. Kramp nazorg",
+exp:"Nazorg na kramp: rustig bewegen, advies over warming-up, voldoende drinken, bij zouttekort bouillon of dropje. Lichte massage (effleurages/pétrissages) voor afvoer van afvalstoffen."},
+
+// ── SPORTMASSAGE EXTRA ────────────────────────────────────────
+{ch:"massage", wp:"Hfst. 43 – Massagetussenstof",
+q:"Wanneer gebruik je GEEN massagetussenstof?",
+o:["Bij massage van een behaarde huid","Bij hyperaemiserende massage of als de huid al te vet is","Bij een tere of droge huid","Tussenstof is altijd verplicht"], a:1,
+src:"Hfst. 43, p. Massagetussenstof",
+exp:"Geen tussenstof bij: hyperaemiserende massage, speciaal huideffect bij koud weer, al te vette huid, bepaalde handgrepen (intermitterend drukken, pétrissages, vibreren, schudden, tapotements)."},
+
+{ch:"massage", wp:"Hfst. 43 – Massagetussenstof",
+q:"Hoe breng je massagetussenstof correct aan?",
+o:["Direct koud uit de fles op het lichaam","Eerst in eigen handen warmen tot lichaamstemperatuur, dan op het lichaam aanbrengen","Opwarmen in warmwaterbad","Koud aanbrengen voor extra stimulatie"], a:1,
+src:"Hfst. 43, p. Tussenstof aanbrengen",
+exp:"Tussenstof eerst in de handen warmen tot lichaamstemperatuur, dan op het lichaam aanbrengen. Elke koude prikkel geeft een spanningsreactie die voorkomen moet worden bij een ontspannende massage."},
+
+{ch:"massage", wp:"Hfst. 43 – Effleurage",
+q:"Wat is het effect van effleurage (strijking) als opening van de massage?",
+o:["Diepe weefselbehandeling en losmaken van myogelosen","Eerste contact, verwarming huid, veneuze terugvloed en lymfedrainage bevorderen","Activering van spieren vóór sport","Losmaken van adhesies in de fascie"], a:1,
+src:"Hfst. 43, p. Effleurage",
+exp:"Effleurage als opening: eerste contact leggen, huid verwarmen, veneuze terugvloed en lymfedrainage bevorderen, weefsel aftasten. Altijd van distaal naar proximaal (richting hart)."},
+
+{ch:"massage", wp:"Hfst. 43 – Handgrepen",
+q:"Wat zijn de 7 basishandgrepen bij de klassieke massage?",
+o:["Effleurage, pétrissage, frictie, tapotement, vibratie, schudding, intermitterend drukken","Strijken, kneden, wrijven, kloppen, schudden, rekken, comprimeren","Effleurage, pétrissage, frictie, tapotement, vibrage, extensie, flexie","Druk, wrijving, trilling, klop, strijk, rek, compressie"], a:0,
+src:"Hfst. 43, p. Handgrepen",
+exp:"De 7 basishandgrepen: (1) intermitterend drukken, (2) effleurages (strijkingen), (3) pétrissages (knedingen), (4) fricties (wrijvingen), (5) tapotements (kloppingen), (6) vibraties (trillingen), (7) schuddingen."},
+
+{ch:"massage", wp:"Hfst. 43 – Massage effecten",
+q:"Wat is het 'antiflogistisch' effect van massage?",
+o:["Pijnstillend effect","Ontstekingsremmend effect","Vochtafdrijvend effect","Ontschilfering van de huid"], a:1,
+src:"Hfst. 43, p. Effecten massage",
+exp:"Antiflogistisch = ontstekingsremmend. Massage kan een ontstekingsremmend effect hebben via verbetering van circulatie en afvoer van ontstekingsstoffen. Analgetisch = pijnstillend. Desquamatie = ontschilfering."},
+
+{ch:"massage", wp:"Hfst. 43 – Massage reacties",
+q:"Na een massage klaagt een cliënt over lichte spierpijn de dag erna. Wat betekent dit?",
+o:["De masseur heeft een fout gemaakt","Normale reactie bij eerste behandeling of diepe massage; verdwijnt binnen 24-48 uur","De cliënt heeft een blessure opgelopen","Dit wijst op een over het hoofd geziene contra-indicatie"], a:1,
+src:"Hfst. 43, p. Reacties na massage",
+exp:"Lichte spierpijn na massage is een normale reactie, vergelijkbaar met spierpijn na sport (DOMS). Treedt vooral op bij eerste behandeling of bij diepe massage. Verdwijnt vanzelf binnen 24-48 uur."},
+
+];// END DB v5
 
 
 // ══════════════════════════════════════════════════════════════
